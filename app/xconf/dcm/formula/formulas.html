@@ -1,19 +1,19 @@
 <!--
- * Copyright 2023 Comcast Cable Communications Management, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
+    Copyright 2024 Comcast Cable Communications Management, LLC
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    SPDX-License-Identifier: Apache-2.0
 -->
 <div class="col-md-12" style="padding-top: 1em">
     <h1 class="page-header">
@@ -28,7 +28,7 @@
                 <div class="pull-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-success"
-                                ui-sref="formula-edit({formulasSize: vm.getSize()})"
+                                ui-sref="formula-edit({formulasSize: vm.formulasSize})"
                                 ng-show="authUtils.canWriteDcmByApplication($root.applicationType)"
                                 title="Create Formula" id="createEntity">
                             Create
@@ -139,16 +139,11 @@
         <h4>No results found</h4>
     </div>
     <div ng-show="vm.isDataLoading" class="loader-custom"></div>
-    <div class="row ads-pagination-align" ng-show="vm.getSize() > 1">
-        <uib-pagination ng-show="vm.numPages > 1" total-items="vm.getSize()" items-per-page="vm.pageSize"
-                    ng-model="vm.pageNumber" max-size="10" class="pagination-sm pull-right"
-                    boundary-links="true" ng-change="vm.getFormulas(vm.pageNumber, vm.pageSize)"
-                    num-pages="vm.numPages">
-        </uib-pagination>
-        <div class="input-group" style="margin: 20px 0px">
-            <span class="ads-input-group-addon">Items per page:&nbsp;&nbsp;</span>
-            <select class="form-control input-sm" ng-model="vm.pageSizeModel" ng-change="vm.changePageSize(vm.pageSizeModel)" ng-options="option for option in vm.availablePageSizes">
-            </select>
-        </div>
-    </div>
+    <xconf-pagination ng-if="vm.startParse()"
+                      page-size="vm.pageSize"
+                      page-number="vm.pageNumber"
+                      pagination-storage-key="vm.paginationStorageKey"
+                      get-general-items-number="vm.generalItemsNumber"
+                      get-page="vm.getFormulas()">
+    </xconf-pagination>
 </div>

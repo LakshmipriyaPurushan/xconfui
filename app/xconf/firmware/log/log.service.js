@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 angular
     .module('app.log', ['ngResource'])
     .factory('logService', ['$resource', function($resource) {
@@ -26,7 +25,17 @@ angular
                     'Content-Type': 'application/json; charset=UTF',
                     'Accept': 'text/plain, application/json; charset=UTF-8'
                 }
-
+            },
+            getHashAndPercent: {
+                method: 'GET',
+                url: 'percentfilter/calculator',
+                params: {
+                    "esbMac": '@_esbMac'
+                },
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF',
+                    'Accept': 'text/plain, application/json; charset=UTF-8'
+                }
             }
         });
     }]);

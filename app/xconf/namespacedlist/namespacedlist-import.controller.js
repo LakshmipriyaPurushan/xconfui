@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 (function() {
     'use strict';
 
@@ -167,18 +166,6 @@
         }
 
         function validateNamespacedList(namespacedLists, type) {
-            if(angular.isArray(namespacedLists[0].data)) {
-                var listItem = namespacedLists[0].data[0];
-                if(type === NAMESPACED_LIST_TYPE.IP_LIST && !namespacedListService.isValidIpAddress(listItem)) {
-                    vm.mainErrorMessage = 'Invalid data, import file is not an IpList';
-                    return false;
-                }
-                if ((type === NAMESPACED_LIST_TYPE.MAC_LIST || type === NAMESPACED_LIST_TYPE.RI_MAC_LIST) && !namespacedListService.isMacAddress(listItem)) {
-                    vm.mainErrorMessage = 'Invalid data, import file is not a MacList';
-                    return false;
-                }
-            }
-
             var missingFields = [];
             var i = 0;
             while(i < namespacedLists.length) {

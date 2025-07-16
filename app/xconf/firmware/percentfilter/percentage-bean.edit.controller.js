@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,14 +64,17 @@
         vm.setNoop = setNoop;
         vm.isNoop = isNoop;
         vm.reloadFirmwareConfigsByModelChanging = reloadFirmwareConfigsByModelChanging;
+        vm.isDataLoading = false;
         init();
 
         function init() {
-
+            vm.isDataLoading = true;
             firmwareConfigService.getAll().then(function(resp) {
                 vm.allFirmwareConfigs = resp.data;
                 initPercentageBean();
+                vm.isDataLoading = false;
             }, function(error) {
+                vm.isDataLoading = false;
                 alertsService.showError({title: 'Error', message: error.data.message})
             });
 
@@ -99,6 +102,7 @@
                     if (!vm.percentageBean.optionalConditions) {
                         vm.percentageBean.optionalConditions = {};
                     }
+                    vm.isDataLoading = false;
                     reloadFirmwareConfigsByModelChanging(vm.percentageBean.model);
                     percentageBeanService.sortPercentageBeanFirmwareVersionsIfExistOrNot(vm.percentageBean).then(function (missingFirmwareVersions) {
                         vm.missingFirmwareVersions = missingFirmwareVersions;
@@ -202,7 +206,8 @@
                 configId: '',
                 percentage: '',
                 startPercentRange: '',
-                endPercentRange: ''
+                endPercentRange: '',
+                isPaused: false
             };
             percentageBean.distributions.push(distribution);
             percentageBean.firmwareCheckRequired = true;

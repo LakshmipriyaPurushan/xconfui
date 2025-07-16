@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -959,3 +959,21 @@ table.log-table >tbody>tr>th {
   .changes-tab {
     max-height: 300px;
   }
+
+  .distribution-text-width {
+    width: 385px;
+  }
+ .announcement-text {
+     color: #000000;
+     font-size: 17px;
+     margin-top: 9px;
+ }
+
+ .announcement-container {
+     background-color: #f7db4fa3;
+     height: 45px;
+ }
+
+ .rfc-recooking-container {
+    margin-top: -10px;
+ }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 (function () {
     'use strict';
     angular.module('app.services')
@@ -427,6 +426,40 @@
             return objectToRemoveProps;
         }
 
+        function isBase64(encoded) {
+            return encoded.length % 4 === 0 && /^[A-Za-z0-9+/]*={0,3}$/.test(encoded);
+        }
+
+        function isGibberish(decoded) {
+            const nonPrintableThreshold = 0.3; // 30%
+          
+            const nonPrintableCount = (decoded.match(/[\x00-\x1F\x7F-\xFF]/g) || []).length;
+            const nonPrintablePercentage = nonPrintableCount / decoded.length;
+                      
+            return nonPrintablePercentage > nonPrintableThreshold;
+        }
+        
+        function getValuesInArrayUsingKey(parameters, key) {
+            var values = [];
+            for (var i = 0; i < parameters.length; i++) {
+                if(parameters[i].key === key) {
+                    values.push(parameters[i].value);
+                }
+            }
+            return values;
+        }
+
+        function isNumber(valStr) {
+            if (!/^\d+$/.test(valStr)) {
+                return false;
+            }
+            const num = parseInt(valStr, 10);
+            if (isNaN(num)) {
+                return false;
+            }
+            return true;
+        }
+
         return {
             isEmptyString: isEmptyString,
             getString: getString,
@@ -465,7 +498,11 @@
             getCronExpressionFromFields: getCronExpressionFromFields,
             removeEmptyStringParams: removeEmptyStringParams,
             removeItemFromArrayWithDeepEquals: removeItemFromArrayWithDeepEquals,
-            isArrayContainsValue: isArrayContainsValue
+            isArrayContainsValue: isArrayContainsValue,
+            isBase64: isBase64,
+            isGibberish: isGibberish,
+            getValuesInArrayUsingKey: getValuesInArrayUsingKey,
+            isNumber: isNumber
         };
     }
 })();

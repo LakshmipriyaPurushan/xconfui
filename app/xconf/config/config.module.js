@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 (function () {
 
     'use strict';
@@ -99,7 +98,7 @@ angular
             'read-changes-*', 'read-changes-stb', 'read-changes-rdkcloud'
         ],
         'WRITE_CHANGES_PERMISSIONS': [
-            'write-changes-*', 'write-changes-stb', 'write-changes-rdkcloud'
+            'write-changes-*', 'write-changes-stb', 'write-changes-xhome', 'write-changes-rdkcloud', 'write-changes-sky'
         ]
     })
 
@@ -162,7 +161,9 @@ angular
         'IN_LIST',
         'LIKE',
         'PERCENT',
-        'EXISTS'
+        'EXISTS',
+        'LTE',
+        'GTE'
     ])
 
     .constant('PERCENTAGE_BEAN_OPERATION_ARRAY', [
@@ -170,6 +171,8 @@ angular
         'IN',
         'IN_LIST',
         'LIKE',
+        'LTE',
+        'GTE',
         'EXISTS'
     ])
 
@@ -177,6 +180,8 @@ angular
         'IS',
         'IN_LIST',
         'LIKE',
+        'LTE',
+        'GTE',
         'PERCENT',
         'EXISTS'
     ])
@@ -185,6 +190,8 @@ angular
         'IS',
         'IN_LIST',
         'LIKE',
+        'LTE',
+        'GTE',
         'PERCENT',
         'EXISTS'
     ])
@@ -193,6 +200,8 @@ angular
         'IS',
         'IN_LIST',
         'LIKE',
+        'LTE',
+        'GTE',
         'PERCENT',
         'RANGE',
         'EXISTS'
@@ -217,28 +226,28 @@ angular
     .constant('APPLICABLE_ACTION_TYPE', {
         'RULE': {
             name: 'RULE',
-            class: 'xconf.firmware.RuleAction'
+            class: 'com.comcast.xconf.firmware.RuleAction'
         },
         'DEFINE_PROPERTIES': {
             name: 'DEFINE_PROPERTIES',
-            class: 'xconf.firmware.DefinePropertiesAction'
+            class: 'com.comcast.xconf.firmware.DefinePropertiesAction'
         },
         'BLOCKING_FILTER': {
             name: 'BLOCKING_FILTER',
-            class: 'xconf.firmware.BlockingFilterAction'
+            class: 'com.comcast.xconf.firmware.BlockingFilterAction'
         },
 
         'RULE_TEMPLATE': {
             name: 'RULE_TEMPLATE',
-            class: 'xconf.firmware.RuleAction'
+            class: 'com.comcast.xconf.firmware.RuleAction'
         },
         'DEFINE_PROPERTIES_TEMPLATE': {
             name: 'DEFINE_PROPERTIES_TEMPLATE',
-            class: 'xconf.firmware.DefinePropertiesTemplateAction'
+            class: 'com.comcast.xconf.firmware.DefinePropertiesTemplateAction'
         },
         'BLOCKING_FILTER_TEMPLATE': {
             name: 'BLOCKING_FILTER_TEMPLATE',
-            class: 'xconf.firmware.BlockingFilterAction'
+            class: 'com.comcast.xconf.firmware.BlockingFilterAction'
         },
 
         'getActionTypeByName': function (actionTypeName) {
@@ -305,6 +314,7 @@ angular
         'serial',
         'timeZone',
         'time',
+        'certExpiryDays'
     ])
 
     .constant('LOG_UPLOAD_FREE_ARG_AUTOCOMPLETE_VALUE', [
@@ -321,6 +331,7 @@ angular
         'vodId',
         'experience',
         'version',
+        'certExpiryDays'
     ])
 
     .constant('FREE_ARG_NAME', {
@@ -379,7 +390,9 @@ angular
 
     .constant('APPLICATION_TYPES', [
         'stb',
-        'rdkcloud'
+        'xhome',
+        'rdkcloud',
+        'sky'
     ])
 
     .constant('SINGLE_APPLICATION_TYPE_PAGE', [
@@ -391,7 +404,9 @@ angular
 
     .constant('APPLICATION_TYPE', {
         STB: 'stb',
-        RDKCLOUD: 'rdkcloud'
+        XHOME: 'xhome',
+        RDKCLOUD: 'rdkcloud',
+        SKY: 'sky'
     })
     .constant('CHANGE_TYPE', {
         PENDING: 'PENDING',

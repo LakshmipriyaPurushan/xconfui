@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@
         .module('app.feature')
         .controller('FeatureEditController', controller);
 
-    controller.$inject = ['$rootScope', '$scope', '$state', '$controller', '$stateParams', 'featureService', 'alertsService', 'ruleHelperService', '$uibModal', 'NAMESPACED_LIST_TYPE'];
+    controller.$inject = ['$rootScope', '$scope', '$state', '$controller', '$stateParams', 'featureService', 'alertsService', 'ruleHelperService', '$uibModal', 'NAMESPACED_LIST_TYPE', 'utilsService'];
 
-    function controller($rootScope, $scope, $state, $controller, $stateParams, featureService, alertsService, ruleHelperService, $uibModal, NAMESPACED_LIST_TYPE) {
+    function controller($rootScope, $scope, $state, $controller, $stateParams, featureService, alertsService, ruleHelperService, $uibModal, NAMESPACED_LIST_TYPE, utilsService) {
         var vm = this;
 
         angular.extend(vm, $controller('EditController', {
@@ -45,6 +45,7 @@
             enable: false,
             configData: {},
             whitelisted: false,
+            base64encode: false,
             whitelistProperty: {}
         };
         vm.namespacedListData = ruleHelperService.buildNamespacedListData();
@@ -54,6 +55,7 @@
         vm.clearWhitelistPropertyValue = clearWhitelistPropertyValue;
         vm.showAddNamespacedListModal = showAddNamespacedListModal;
         vm.clearWhitelistProperty = clearWhitelistProperty;
+        vm.enableBase64 = true;
 
         init();
 
@@ -63,7 +65,12 @@
                     vm.parameters = [];
                     vm.feature = result.data;
                     for (var key in vm.feature.configData) {
-                        vm.parameters.push({key: key, value: vm.feature.configData[key]});
+                        let base64Encoded = false;
+                        if(utilsService.isBase64(vm.feature.configData[key]) && !utilsService.isGibberish(atob(vm.feature.configData[key]))) {
+                            base64Encoded = true;
+                            vm.feature.configData[key] = atob(vm.feature.configData[key]);
+                        }
+                        vm.parameters.push({key: key, value: vm.feature.configData[key], base64Encoded: base64Encoded});
                     }
                 }, alertsService.errorHandler);
             }
@@ -74,6 +81,11 @@
             vm.feature.configData = {};
             vm.parameters.forEach(function (item) {
                 if (item.key) {
+                    if(item.base64Encoded) {
+                        item.value = !utilsService.isBase64(item.value) || (utilsService.isBase64(item.value) && utilsService.isGibberish(atob(item.value))) ? btoa(item.value) : item.value;
+                    } else {
+                        item.value = utilsService.isBase64(item.value) && !utilsService.isGibberish(atob(item.value)) ? atob(item.value) : item.value;
+                    }
                     vm.feature.configData[item.key] = item.value;
                 }
             });
@@ -119,9 +131,8 @@
                     },
                     onSelect: function() {
                         return function(id) {
-
                             whitelistProperty.value = id;
-                        }
+                        };
                     }
                 }
             });
