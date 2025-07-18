@@ -1,7 +1,10 @@
-/**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+/*
+ * If not stated otherwise in this file or this component's LICENSE file the
+ * following copyright and licenses apply:
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Copyright 2024 RDK Management
+ *
+ * Licensed under the Apache License, Version 2.0 (the License);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -12,15 +15,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
  */
 package server
 
 import (
 	"encoding/json"
+	"github.com/comcast-cl/xconfui/server/common"
 	"net/http"
-	"xconfui/server/common"
 )
 
 func MonitorHandler(w http.ResponseWriter, r *http.Request) {
@@ -34,8 +35,8 @@ func HealthZHandler(w http.ResponseWriter, r *http.Request) {
 func VersionHandler(w http.ResponseWriter, r *http.Request) {
 	sc := common.GetServerConfig()
 	version := common.Version{
-		CodeGitCommit:   sc.GetString("xconfui.code_git_commit"),
-		BuildTime:       sc.GetString("xconfui.build_time"),
+		CodeGitCommit:   sc.GetString("xconfadminui.code_git_commit"),
+		BuildTime:       sc.GetString("xconfadminui.build_time"),
 		BinaryVersion:   common.BinaryVersion,
 		BinaryBranch:    common.BinaryBranch,
 		BinaryBuildTime: common.BinaryBuildTime,

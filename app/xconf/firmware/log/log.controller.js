@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 (function() {
     'use strict';
 
@@ -30,6 +29,7 @@
         vm.logs = null;
         vm.macAddress = null;
         vm.hasError = false;
+        vm.hashAndPercent = null;
 
         vm.getLogs = getLogs;
         vm.validateMacAddress = validateMacAddress;
@@ -41,9 +41,16 @@
             }, function(error) {
                 alertsService.showError({title: 'Error', message: error.data.message});
             });
+            getHashAndPercent();
         }
-
-
+        function getHashAndPercent() {
+            var normalizedMac = namespacedListService.normalizeMacAddress(vm.macAddress);
+            logService.getHashAndPercent({esbMac: normalizedMac}, function(resp) {
+                vm.hashAndPercent = resp;
+            }, function(error) {
+                alertsService.showError({title: 'Error', message: error.data.message});
+            });
+        }
         function validateMacAddress(mac) {
             var normalizedMac = namespacedListService.normalizeMacAddress(mac);
             vm.hasError = !namespacedListService.isMacAddress(normalizedMac);

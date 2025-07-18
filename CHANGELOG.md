@@ -1,0 +1,29 @@
+- Telemetry 2.0 - NoOp rule implementation
+- UI: Add LTE and GTE conditions to all rule sections
+- ImportAll IP lists does not recognize JSON exported from yellow in one case
+- Error pop-up if model and partner aren't supplied
+- Implementation of locking RFC module with auto-unlock feature
+- XConf Feature configuration page provides the capability to encode data parameters as base64
+- Formula priority is corrupted in case of editing during the search
+- PercentageBean: Save button is disabled while editing
+- Display additional columns from penetration table
+- Telemetry 2 Profile UI: No read permission for ApplicationType stb error appears
+- Show TimeZone and Account ID for Penetration Data Report
+- Rework rule view on main to get rid of recursive directive
+- Added hash and percentage
+- Code factoring for the feature
+- AppTypes pull-down menu has duplicates (GO production admin UI)
+- Restring using IS operation in MAC address conditions
+- PercentFilter: Intermediate version is passed from UI with minimumFirmwareCheckRequired set to false
+- Fixed action buttons for Edit FirmwareRule Template
+- Save button on Setting Rule page should be on the left
+- Xconf UI changes firmware config when user edits FirmwareRule
+- Added client cert and recovery cert expiry to the penetration report
+- Removed XerxesProxy handler
+- Added origin URL to cookies
+- Changes for displaying matched rules
+- Renamed origin URL
+- Revamped test page title to be more specific
+- Admin UI session bug fixed
+- Telemetry 2 Profile API: Implemented CRUD API to not go through approval process
+- Disabled UI element when a create/update event occurs

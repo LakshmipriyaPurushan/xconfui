@@ -1,7 +1,10 @@
-/**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+/*
+ * If not stated otherwise in this file or this component's LICENSE file the
+ * following copyright and licenses apply:
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Copyright 2024 RDK Management
+ *
+ * Licensed under the Apache License, Version 2.0 (the License);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -12,14 +15,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
  */
 package server
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
+	"net/http/httputil"
+	"net/url"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func RouteAdminUIApi(mux *http.ServeMux, ProxyRequestHandler func(http.ResponseWriter, *http.Request)) {
@@ -88,13 +94,10 @@ func RouteAdminUIApi(mux *http.ServeMux, ProxyRequestHandler func(http.ResponseW
 	mux.HandleFunc("/penetrationdata/", ProxyRequestHandler)
 
 	mux.HandleFunc("/config/", ProxyRequestHandler)
+	mux.HandleFunc("/lockdownsettings/", ProxyRequestHandler)
 }
 
-func RouteStaticResources(mux *http.ServeMux, webRoot string) {
-	appDir := fmt.Sprintf("%s/app", webRoot)
-	fsApp := http.FileServer(http.Dir(appDir))
-	mux.Handle("/app/", http.StripPrefix("/app/", fsApp))
-
+func RouteStaticImages(mux *http.ServeMux, webRoot string) {
 	imgDir := fmt.Sprintf("%s/img", webRoot)
 	fsImg := http.FileServer(http.Dir(imgDir))
 	mux.Handle("/img/", http.StripPrefix("/img/", fsImg))
@@ -105,4 +108,32 @@ func RouteBaseApi(mux *http.ServeMux) {
 	mux.HandleFunc("/healthz", HealthZHandler)
 	mux.HandleFunc("/version", VersionHandler)
 	mux.HandleFunc("/config", ServerConfigHandler)
+}
+
+func RenderTemplate(w http.ResponseWriter, webRoot, tmpl string) {
+	fileName := fmt.Sprintf("%s/templates/%s", webRoot, tmpl)
+	parsedTemplate, err := template.ParseFiles(fileName)
+	if err != nil {
+		log.Errorf("Template parsing error: %v", err)
+	}
+	err = parsedTemplate.Execute(w, nil)
+	if err != nil {
+		log.Errorf("Template executing error: %v", err)
+	}
+}
+
+func NewProxyToBackend(targetHost string) *httputil.ReverseProxy {
+	url, err := url.Parse(targetHost)
+	if err != nil {
+		log.Errorf("Proxy error: %v", err)
+		panic(err)
+	}
+	return httputil.NewSingleHostReverseProxy(url)
+}
+
+func ProxyRequestHandler(proxy *httputil.ReverseProxy) func(http.ResponseWriter, *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		r.Header.Set("X-Request-ID", "adminui")
+		proxy.ServeHTTP(w, r)
+	}
 }

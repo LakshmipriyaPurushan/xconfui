@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright 2023 Comcast Cable Communications Management, LLC
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * SPDX-License-Identifier: Apache-2.0
- *******************************************************************************/
+ */
 module.exports = function (grunt) {
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -98,53 +98,87 @@ module.exports = function (grunt) {
                 ]
             },
 
-            xconf_ui: {
+            xconf_ui_modules: {
                 options: {
                     separator: '\n\n'
                 },
-                dest: 'app/compiled/xconfUI.js',
+                dest: 'app/compiled/xconf-module.js',
                 src: [
-                    'app/xconf/app.module.js',
-                    'app/xconf/config/config.module.js',
+                    'app/xconf/**/*.module.js',
                     'app/xconf/config/state.config.js',
-
                     'app/shared/**/*.module.js',
+
+                    '!app/xconf/authorization/authorization.module.js'
+                ]
+            },
+
+            xconf_ui_services: {
+                options: {
+                    separator: '\n\n'
+                },
+                dest: 'app/compiled/xconf-service.js',
+                src: [
                     'app/shared/**/*.service.js',
+                    'app/shared/core/core.js',
+                    'app/shared/core/requests-service.js',
+
+                    'app/xconf/**/*.service.js',
+
+                    '!app/xconf/authorization/authorization.service.js',
+                ]
+            },
+
+            xconf_ui_other: {
+                options: {
+                    separator: '\n\n'
+                },
+                dest: 'app/compiled/xconf-other.js',
+                src: [
                     'app/shared/**/*.directive.js',
                     'app/shared/**/*.controller.js',
                     'app/shared/**/*.filter.js',
                     'app/shared/services/regexp_constants.js',
-                    'app/shared/core/core.js',
-                    'app/shared/core/requests-service.js',
 
-                    'app/xconf/**/*.module.js',
-                    'app/xconf/**/*.service.js',
                     'app/xconf/**/*.controller.js',
                     'app/xconf/**/*.directive.js',
                     'app/xconf/**/*.modal.*.js',
-                    'app/xconf/**/*.filter.js'
+                    'app/xconf/**/*.filter.js',
+
+                    '!app/xconf/authorization/authorization.controller.js',
+                ]
+            },
+
+            xconf_ui_oss_specific: {
+                options: {
+                    separator: '\n\n'
+                },
+                dest: 'app/compiled/xconf-oss-auth.js',
+                src: [
+                    'app/xconf/authorization/authorization.module.js',
+                    'app/xconf/authorization/authorization.service.js',
+                    'app/xconf/authorization/authorization.controller.js',
                 ]
             }
         },
-		copy: {
-			fonts: {
-				files: [{
-					expand: true,
-					dot: true,
+
+        copy: {
+            fonts: {
+                files: [{
+                    expand: true,
+                    dot: true,
                     flatten: true,
-					src: [
-					    'node_modules/remixicon/fonts/remixicon.ttf',
-					    'node_modules/remixicon/fonts/remixicon.woff',
-					    'node_modules/remixicon/fonts/remixicon.woff2'
+                    src: [
+                        'node_modules/remixicon/fonts/remixicon.ttf',
+                        'node_modules/remixicon/fonts/remixicon.woff',
+                        'node_modules/remixicon/fonts/remixicon.woff2'
                     ],
-					dest: 'app/compiled/'
-				}]
-			}
-		}
+                    dest: 'app/compiled/'
+                }]
+            }
+        }
     });
 
     //installation-related
     grunt.registerTask('install', ['update']);
     grunt.registerTask('update', ['shell:npm_install', 'concat', 'copy']);
-
 };
