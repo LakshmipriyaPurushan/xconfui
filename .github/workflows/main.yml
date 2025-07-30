@@ -1,17 +1,19 @@
-name: Hello World Workflow
+name: Run Vulnerability scan on Push
 
 on:
-  workflow_dispatch: 
+  push:main  
 
 jobs:
-  say-hello:
+  run-script:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4  # pulls your repo files into the runner
 
-      - name: Run
+      - name: Run script
         run: |
-          echo "Hello World code of GitHub Actions"
+          chmod +x ./capture_vulnerabilities_xconf.sh
+          ./capture_vulnerabilities_xconf.sh
+
     
          
