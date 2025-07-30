@@ -1,0 +1,16 @@
+name: Run Script on every commit
+
+on:
+  push:
+    branches:
+      - main   
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: Run and capture the xconf vulnerabilities
+        run: |
+          chmod +x ./capture_vulnerabilities_xconf.sh
+          source ./capture_vulnerabilities_xconf.sh
