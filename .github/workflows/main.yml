@@ -1,7 +1,9 @@
 name: Run Vulnerability scan on Push
 
 on:
-  push:main  
+  push:
+    branches:
+    - main  
 
 jobs:
   run-script:
