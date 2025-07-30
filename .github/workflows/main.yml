@@ -8,9 +8,12 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
-
     steps:
-     - uses: actions/checkout@v4
-     - name: Run and capture the xconf vulnerabilities
-        run: |
-           echo "Hello World of GitHub Actions"
+  - uses: actions/checkout@v4
+
+  - name: Run below code
+    run: |
+      echo "Hello World of GitHub Actions"
+
+    
+         
