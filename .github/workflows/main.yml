@@ -22,6 +22,39 @@ jobs:
         with:
           name:  xconf_vulnerability_reports
           path:  ~/xconf_vulnerability_reports
-
+          
+       - name: Create JIRA Ticket
+        run: |
+          curl -X POST \
+            --url "https://jira.rdkcentral.com/rest/api/3/issue" \
+            --user "${{ secrets.Lakshmipriya_purushan@comcast.com }}:${{ secrets.OTI1MTI0OTcxMzgxOo2Us7Wk2UgUjwnZirC9gOkgSN7R }}" \
+            --header "Accept: application/json" \
+            --header "Content-Type: application/json" \
+            --data '{
+              "fields": {
+                "project": {
+                  "key": "RDKCLOUD"
+                },
+                "summary": "Artifact Uploaded via GitHub Actions",
+                "description": {
+                  "type": "doc",
+                  "version": 1,
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "An artifact was uploaded to GitHub Actions. View the run here: https://github.com/'"${{ github.repository }}"'/actions/runs/'"${{ github.run_id }}"'"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "issuetype": {
+                  "name": "Task"
+                }
+              }
+            }'
     
          
