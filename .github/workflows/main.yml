@@ -24,7 +24,7 @@ jobs:
           path:  ~/xconf_vulnerability_reports
           
        - name: Create JIRA Ticket
-        run: |
+         run: |
           curl -X POST \
             --url "https://jira.rdkcentral.com/rest/api/3/issue" \
             --user "${{ secrets.Lakshmipriya_purushan@comcast.com }}:${{ secrets.OTI1MTI0OTcxMzgxOo2Us7Wk2UgUjwnZirC9gOkgSN7R }}" \
