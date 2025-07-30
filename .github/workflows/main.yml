@@ -1,19 +1,17 @@
-name: Run Script on every commit
+name: Hello World Workflow
 
 on:
-  push:
-    branches:
-      - main   
+  workflow_dispatch: 
 
 jobs:
-  run-script:
+  say-hello:
     runs-on: ubuntu-latest
+
     steps:
-  - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-  - name: Run below code
-    run: |
-      echo "Hello World of GitHub Actions"
-
+      - name: Run
+        run: |
+          echo "Hello World code of GitHub Actions"
     
          
