@@ -14,8 +14,8 @@ jobs:
 
       - name: Run script
         run: |
-          chmod +x ./capture_vulnerabilities_xconf.sh
-          ./capture_vulnerabilities_xconf.sh
+          chmod +x .github/workflows/capture_vulnerabilities_xconf.sh
+          source .github/workflows/capture_vulnerabilities_xconf.sh
 
     
          
