@@ -1,0 +1,69 @@
+name: Run Vulnerability scan on Push
+
+on:
+  push:
+    branches:
+    - main  
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4  # pulls your repo files into the runner
+
+      - name: Run script
+        run: |
+          chmod +x .github/workflows/capture_vulnerabilities_xconf.sh
+          source .github/workflows/capture_vulnerabilities_xconf.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name:  xconf_vulnerability_reports
+          path:  ~/xconf_vulnerability_reports
+
+      - name: Create Jira Ticket with GitHub details
+        run: |
+          RUN_ID=${{ github.run_id }}
+          REPO=${{LakshmipriyaPurushan/xconfui}}
+          ARTIFACT_NAME="build-artifact"
+          WORKFLOW_URL="https://github.com/$REPO/actions/runs/$RUN_ID"
+
+          SUMMARY="XCONF UI Vulnerability Report - $ARTIFACT_NAME"
+          DESCRIPTION="XCONF scan has been triggered. Please find the vulnerability report from:\n$WORKFLOW_URL"
+
+          curl -X POST \
+            -u "${{ secrets.JIRA_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --url "${{ secrets.JIRA_URL }}/rest/api/3/issue" \
+            -d '{
+              "fields": {
+                "project": {
+                  "key": "'"${{RDKCLOUD}}"'"
+                },
+                "summary": "'"$SUMMARY"'",
+                "description": {
+                  "type": "doc",
+                  "version": 1,
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "'"${DESCRIPTION}"'"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "issuetype": {
+                  "name": "Task"
+                },
+                "labels": ["github-artifact", "automated"]
+              }
+            }'
+
+          
+      
+    
