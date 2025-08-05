@@ -23,9 +23,8 @@ jobs:
       - name: Create Jira Ticket with GitHub details
         run: |
           RUN_ID=${{ github.run_id }}
-          REPO=${{LakshmipriyaPurushan/xconfui}}
           ARTIFACT_NAME="build-artifact"
-          WORKFLOW_URL="https://github.com/$REPO/actions/runs/$RUN_ID"
+          WORKFLOW_URL="https://github.com/LakshmipriyaPurushan/xconfui/actions/runs/$RUN_ID"
 
           SUMMARY="XCONF UI Vulnerability Report - $ARTIFACT_NAME"
           DESCRIPTION="XCONF scan has been triggered. Please find the vulnerability report from:\n$WORKFLOW_URL"
