@@ -36,7 +36,7 @@ jobs:
             -d '{
               "fields": {
                 "project": {
-                  "key": "'"${{RDKCLOUD}}"'"
+                  "key": "'"${{PROJECT}}"'"
                 },
                 "summary": "'"$SUMMARY"'",
                 "description": {
