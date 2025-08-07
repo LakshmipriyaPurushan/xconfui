@@ -20,8 +20,9 @@ package server
 
 import (
 	"encoding/json"
-	"github.com/comcast-cl/xconfui/server/common"
 	"net/http"
+
+	"github.com/rdkcentral/xconfui/server/common"
 )
 
 func MonitorHandler(w http.ResponseWriter, r *http.Request) {

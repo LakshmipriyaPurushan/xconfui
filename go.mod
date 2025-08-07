@@ -13,7 +13,7 @@
 // limitations under the License.
 //
 // SPDX-License-Identifier: Apache-2.0
-module github.com/comcast-cl/xconfui
+module github.com/rdkcentral/xconfui
 
 go 1.17
 

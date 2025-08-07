@@ -97,7 +97,11 @@ func RouteAdminUIApi(mux *http.ServeMux, ProxyRequestHandler func(http.ResponseW
 	mux.HandleFunc("/lockdownsettings/", ProxyRequestHandler)
 }
 
-func RouteStaticImages(mux *http.ServeMux, webRoot string) {
+func RouteStaticResources(mux *http.ServeMux, webRoot string) {
+	appDir := fmt.Sprintf("%s/app", webRoot)
+	fsApp := http.FileServer(http.Dir(appDir))
+	mux.Handle("/app/", http.StripPrefix("/app/", fsApp))
+
 	imgDir := fmt.Sprintf("%s/img", webRoot)
 	fsImg := http.FileServer(http.Dir(imgDir))
 	mux.Handle("/img/", http.StripPrefix("/img/", fsImg))

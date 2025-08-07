@@ -19,12 +19,11 @@
 package logging
 
 import (
-	"github.com/comcast-cl/xconfui/server/common"
+	"github.com/rdkcentral/xconfui/server/common"
 	log "github.com/sirupsen/logrus"
-	"os"
 )
 
-func InitLogging(sc *common.ServerConfig, file *os.File) {
+func InitLogging(sc *common.ServerConfig) {
 	log.SetFormatter(&log.JSONFormatter{
 		TimestampFormat: common.LoggingTimeFormat,
 		FieldMap: log.FieldMap{
