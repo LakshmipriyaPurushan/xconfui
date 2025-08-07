@@ -20,14 +20,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	ui "github.com/comcast-cl/xconfui/app"
-	"github.com/comcast-cl/xconfui/server"
-	"github.com/comcast-cl/xconfui/server/common"
-	"github.com/comcast-cl/xconfui/server/logging"
 	"net/http"
 	"os"
 	"strings"
 
+	"github.com/rdkcentral/xconfui/server"
+	"github.com/rdkcentral/xconfui/server/common"
+	"github.com/rdkcentral/xconfui/server/logging"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -56,7 +55,7 @@ func main() {
 		defer file.Close()
 
 		log.SetOutput(file)
-		logging.InitLogging(sc, file)
+		logging.InitLogging(sc)
 	} else {
 		log.SetOutput(os.Stdout)
 	}
@@ -77,8 +76,7 @@ func main() {
 
 	server.RouteAdminUIApi(mux, server.ProxyRequestHandler(proxy))
 	server.RouteBaseApi(mux)
-	server.RouteStaticImages(mux, webRoot)
-	ui.RouteUiFiles(mux)
+	server.RouteStaticResources(mux, webRoot)
 
 	port := sc.GetString("xconfadminui.server.port")
 	log.Fatal(http.ListenAndServe(port, mux))
