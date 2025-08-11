@@ -252,10 +252,6 @@
                 showRelation(scope);
             });
 
-            scope.disableNegated = function() {
-                return scope.rule.condition.operation === OPERATION.PERCENT;
-            };
-
             scope.showAddNamespacedListModal = function() {
                 var modalInstance = $modal.open({
                     templateUrl: 'app/shared/filtered-select/filtered-select.html',
@@ -284,10 +280,6 @@
                         }
                     }
                 });
-            };
-
-            scope.disableNegated = function() {
-                return scope.rule.condition.operation === OPERATION.PERCENT;
             };
 
             scope.cleanFixedArg = function(scope) {
@@ -360,7 +352,7 @@
                 if (!(argName.includes("ip") || argName.includes("mac")) && operation === 'IN_LIST') {
                     return false;
                 }
-                return !(operation === 'PERCENT' && scope.rule.negated);
+                return true;
             }
         }
 
