@@ -109,7 +109,7 @@
                             return 1;
                         }
                     } else if (ruleBuilderScope.fixedArgRequired &&
-                        (condition.operation === OPERATION.LTE || condition.operation === OPERATION.GTE) && !utilsService.isNumber(condition.fixedArg.bean.value['java.lang.Double'])) {
+                        (condition.operation === OPERATION.LTE || condition.operation === OPERATION.GTE) && !utilsService.isNumeric(condition.fixedArg.bean.value['java.lang.Double'])) {
                         alertsService.showError({title: 'Cert Expiry Duration', message: 'Value must be a number'});
                         return 1;
                     }
