@@ -21,6 +21,8 @@ jobs:
           path:  ~/xconf_vulnerability_reports
 
       - name: Create Jira Ticket with GitHub details
+        env:
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         run: |
           RUN_ID=${{ github.run_id }}
           ARTIFACT_NAME="build-artifact"
@@ -28,7 +30,7 @@ jobs:
 
           SUMMARY="XCONF UI Vulnerability Report - $ARTIFACT_NAME"
           DESCRIPTION="XCONF scan has been triggered. Please find the vulnerability report from:\n$WORKFLOW_URL"
-
+        
           curl -X POST \
             -H "Authorization: Bearer $JIRA_API_TOKEN" \
             -H "Content-Type: application/json" \
