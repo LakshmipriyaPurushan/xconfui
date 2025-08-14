@@ -15,8 +15,8 @@ GO_URL="https://go.dev/dl/${GO_TAR}"
 
 curl -sSL "$GO_URL" -o "$GO_TAR"
 
-rm -rf /usr/local/go
-tar -C /usr/local -xzf "$GO_TAR"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "$GO_TAR"
 
 # Update PATH
 export PATH="/usr/local/go/bin:$PATH"
