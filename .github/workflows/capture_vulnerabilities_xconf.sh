@@ -9,12 +9,18 @@ mkdir -p ~/xconf_vulnerability_reports ~/scan_repo
 
 cd ~/scan_repo
 
-GO_VERSION="1.23.x"
+GO_VERSION="1.23.0"
+GO_TAR="go${GO_VERSION}.linux-amd64.tar.gz"
+GO_URL="https://go.dev/dl/${GO_TAR}"
 
-go install golang.org/dl/go${GO_VERSION}@latest
-go${GO_VERSION} download
+curl -sSL "$GO_URL" -o "$GO_TAR"
 
-export PATH="$HOME/go/bin:$PATH"
+rm -rf /usr/local/go
+tar -C /usr/local -xzf "$GO_TAR"
+
+# Update PATH
+export PATH="/usr/local/go/bin:$PATH"
+go version
 
 go install golang.org/x/vuln/cmd/govulncheck@latest
 
