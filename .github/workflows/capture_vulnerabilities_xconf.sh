@@ -16,16 +16,9 @@ go${GO_VERSION} download
 
 export PATH="$HOME/go/bin:$PATH"
 
-
-go${GO_VERSION} version
-
-
-go${GO_VERSION} install golang.org/x/vuln/cmd/govulncheck@latest
-
-#go install golang.org/x/vuln/cmd/govulncheck@latest
+go install golang.org/x/vuln/cmd/govulncheck@latest
 
 export PATH=$PATH:$(go env GOPATH)/bin
-
 
 #capture xconfui vulnerability reports
 git clone https://github.com/rdkcentral/xconfui.git -b main
