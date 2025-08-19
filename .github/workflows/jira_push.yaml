@@ -34,7 +34,8 @@ jobs:
           curl -X POST \
             -H "Authorization: Bearer $JIRA_API_TOKEN" \
             -H "Content-Type: application/json" \
-            --url "${{ secrets.JIRA_URL }}/rest/api/3/issue" \
+            -H "Expect:" \
+            --url "${{secrets.JIRA_URL}}/rest/api/2/issue" \
             -d '{
               "fields": {
                 "project": {
