@@ -42,6 +42,8 @@ fi
 
 echo "Clone successful"
 
+npm install --package-lock-only
+
 mkdir -p "$GITHUB_WORKSPACE/xconf_npm_vulnerability_reports"
 
 REPORT_FILE="$GITHUB_WORKSPACE/xconf_npm_vulnerability_reports/xconfui_npm_audit_results.txt"
