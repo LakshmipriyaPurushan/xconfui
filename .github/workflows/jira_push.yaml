@@ -17,8 +17,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name:  xconf_vulnerability_reports
-          path:  ~/xconf_vulnerability_reports
+          name:  xconfui_govulncheck.txt
+          path:  $GITHUB_WORKSPACE/xconf_vulnerability_reports
 
       - name: Create Jira Ticket with GitHub details
         env:
