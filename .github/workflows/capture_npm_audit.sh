@@ -42,11 +42,7 @@ fi
 
 echo "Clone successful"
 
-npm install --package-lock-only
-
-npm install -g bower --save-dev
-
-bower install
+npm install &&  npm install -g bower && bower install
 
 mkdir -p "$GITHUB_WORKSPACE/xconf_npm_vulnerability_reports"
 
