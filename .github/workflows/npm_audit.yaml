@@ -1,0 +1,23 @@
+name: Run Vulnerability scan on Push
+
+on:
+  push:
+    branches:
+    - main  
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4  # pulls your repo files into the runner
+
+      - name: Run script
+        run: |
+          chmod +x .github/workflows/capture_npm_audit.sh
+          source .github/workflows/capture_npm_audit.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name:  xconfui_npm_audit_check
+          path: ${{ github.workspace }}/xconf_npm_vulnerability_reports/xconfui_npm_audit_results.txt
