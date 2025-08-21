@@ -50,6 +50,14 @@ if [ ! -f go.mod ]; then
   exit 3
 fi
 ls -l 
-govulncheck  ./...  >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
+if ! govulncheck ./... 2>&1 | tee govulncheck.log; then
+  echo "❌ govulncheck failed with exit code $?"
+  echo "---- govulncheck log ----"
+  cat govulncheck.log
+  echo "-------------------------"
+  exit 1
+fi
+
+# govulncheck  ./...  >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
 
 
