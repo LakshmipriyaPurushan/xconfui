@@ -59,7 +59,7 @@ if ! govulncheck ./... 2>&1 | tee govulncheck.log; then
 fi
 
 echo "govulncheck exited with status $status"
-ls -l "$HOME/xconf_vulnerability_reports"
+ls -l "$GITHUB_WORKSPACE/xconf_vulnerability_reports"
 
 mkdir -p "$GITHUB_WORKSPACE/xconf_vulnerability_reports"
 
