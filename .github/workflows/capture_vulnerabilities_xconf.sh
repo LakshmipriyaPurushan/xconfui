@@ -2,9 +2,9 @@
 #
 #clean all files initially
 
-rm -rf $HOME/scan_repo  $HOME/xconf_vulnerability_reports
+rm -rf $HOME/scan_repo  $GITHUB_WORKSPACE/xconf_vulnerability_reports
 
-mkdir -p $HOME/xconf_vulnerability_reports $HOME/scan_repo
+mkdir -p $HOME/scan_repo
 
 cd $HOME/scan_repo
 
@@ -58,14 +58,23 @@ if ! govulncheck ./... 2>&1 | tee govulncheck.log; then
   exit 1
 fi
 
-mkdir -p $HOME/xconf_vulnerability_reports
-touch $HOME/xconf_vulnerability_reports/xconfui_govulncheck.txt
-govulncheck  ./...  >  $HOME/xconf_vulnerability_reports/xconfui_govulncheck.txt 2>&1
+echo "govulncheck exited with status $status"
+ls -l "$HOME/xconf_vulnerability_reports"
+
+mkdir -p "$GITHUB_WORKSPACE/xconf_vulnerability_reports"
+
+REPORT_FILE="$GITHUB_WORKSPACE/xconf_vulnerability_reports/xconfui_govulncheck.txt"
+
+echo "Running govulncheck, writing report to: $REPORT_FILE"
+
+# Run govulncheck and capture all output
+set +e  # don't exit immediately if govulncheck finds issues
+govulncheck ./... > "$REPORT_FILE" 2>&1
 status=$?
 set -e
 
-echo "govulncheck exited with status $status"
-ls -l "$HOME/xconf_vulnerability_reports"
+echo "govulncheck exited with status: $status"
+ls -l "$GITHUB_WORKSPACE/xconf_vulnerability_reports"
 
 
 
