@@ -50,6 +50,6 @@ if [ ! -f go.mod ]; then
   exit 3
 fi
 ls -l 
-govulncheck -v ./...  >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
+govulncheck  ./...  >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
 
 
