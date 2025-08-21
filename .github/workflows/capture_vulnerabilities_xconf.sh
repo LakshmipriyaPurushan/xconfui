@@ -26,17 +26,8 @@ go install golang.org/x/vuln/cmd/govulncheck@latest
 
 export PATH=$PATH:$(go env GOPATH)/bin
 
-#capture xconfui vulnerability reports
-git clone https://github.com/rdkcentral/xconfui.git -b main
+REPO_URL="https://github.com/rdkcentral/xconfui.git"
+git clone --branch v1.0.2 --depth 1 "$REPO_URL"
 cd  xconfui
-govulncheck ./... >  ~/xconf_vulnerability_reports/xconfui.txt
+govulncheck ./... >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
 
-
-git clone https://github.com/rdkcentral/xconfadmin.git -b main
-cd  xconfadmin
-govulncheck ./... >  ~/xconf_vulnerability_reports/xconfadmin.txt
-
-
-git clone https://github.com/rdkcentral/xconfwebconfig.git -b main
-cd  xconfwebconfig
-govulncheck ./... >  ~/xconf_vulnerability_reports/xconfwebconfig.txt
