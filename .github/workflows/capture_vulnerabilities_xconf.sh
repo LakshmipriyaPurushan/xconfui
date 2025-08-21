@@ -2,11 +2,11 @@
 #
 #clean all files initially
 
-rm -rf ~/scan_repo  ~/xconf_vulnerability_reports
+rm -rf $HOME/scan_repo  $HOME/xconf_vulnerability_reports
 
-mkdir -p ~/xconf_vulnerability_reports ~/scan_repo
+mkdir -p $HOME/xconf_vulnerability_reports $HOME/scan_repo
 
-cd ~/scan_repo
+cd $HOME/scan_repo
 
 GO_VERSION="1.23.0"
 GO_TAR="go${GO_VERSION}.linux-amd64.tar.gz"
@@ -58,6 +58,6 @@ if ! govulncheck ./... 2>&1 | tee govulncheck.log; then
   exit 1
 fi
 
-# govulncheck  ./...  >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
+govulncheck  ./...  >  $HOME/xconf_vulnerability_reports/xconfui_govulncheck.txt
 
 
