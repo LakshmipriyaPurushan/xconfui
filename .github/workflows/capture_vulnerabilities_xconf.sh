@@ -29,9 +29,21 @@ export PATH=$PATH:$(go env GOPATH)/bin
 REPO_URL="https://github.com/rdkcentral/xconfui.git"
 
 TAG=v1.0.2
-git -c advice.detachedHead=false clone --branch "$TAG" --depth 1 "$REPO_URL" xconfui || \
-  (echo "Shallow clone failed, retrying full clone..." && git -c advice.detachedHead=false clone --branch "$TAG" "$REPO_URL" xconfui)
-  
-cd xconfui
-govulncheck ./... >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
+
+# First attempt shallow clone on branch/tag
+if ! git -c advice.detachedHead=false clone --branch "$TAG" --depth 1 "$REPO_URL" xconfui; then
+  echo "Shallow clone failed, retrying with fetch..."
+  git clone "$REPO_URL" xconfui
+  cd xconfui
+  git fetch --tags
+  git -c advice.detachedHead=false checkout "tags/$TAG" -b "tag-$TAG"
+else
+  cd xconfui
+fi
+
+echo "Clone successful"
+
+echo "Running govulncheck..."
+govulncheck ./...  >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
+
 
