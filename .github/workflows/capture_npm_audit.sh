@@ -44,11 +44,9 @@ echo "Clone successful"
 
 npm install --package-lock-only
 
-npm install -g bower
+npm install bower --save-dev
 
-export PATH=$(npm bin -g):$PATH
-
-bower install
+npx bower install
 
 mkdir -p "$GITHUB_WORKSPACE/xconf_npm_vulnerability_reports"
 
