@@ -58,6 +58,14 @@ if ! govulncheck ./... 2>&1 | tee govulncheck.log; then
   exit 1
 fi
 
+mkdir -p $HOME/xconf_vulnerability_reports
+touch $HOME/xconf_vulnerability_reports/xconfui_govulncheck.txt
 govulncheck  ./...  >  $HOME/xconf_vulnerability_reports/xconfui_govulncheck.txt 2>&1
+status=$?
+set -e
+
+echo "govulncheck exited with status $status"
+ls -l "$HOME/xconf_vulnerability_reports"
+
 
 
