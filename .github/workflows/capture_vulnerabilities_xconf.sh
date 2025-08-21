@@ -6,7 +6,6 @@ rm -rf ~/scan_repo  ~/xconf_vulnerability_reports
 
 mkdir -p ~/xconf_vulnerability_reports ~/scan_repo
 
-
 cd ~/scan_repo
 
 GO_VERSION="1.23.0"
@@ -44,6 +43,7 @@ fi
 echo "Clone successful"
 
 echo "Running govulncheck..."
-govulncheck ./...  >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
+
+govulncheck -v ./...  >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
 
 
