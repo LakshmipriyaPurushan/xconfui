@@ -58,6 +58,6 @@ if ! govulncheck ./... 2>&1 | tee govulncheck.log; then
   exit 1
 fi
 
-govulncheck  ./...  >  $HOME/xconf_vulnerability_reports/xconfui_govulncheck.txt
+govulncheck  ./...  >  $HOME/xconf_vulnerability_reports/xconfui_govulncheck.txt 2>&1
 
 
