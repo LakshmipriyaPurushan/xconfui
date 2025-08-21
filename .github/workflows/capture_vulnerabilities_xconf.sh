@@ -43,7 +43,13 @@ fi
 echo "Clone successful"
 
 echo "Running govulncheck..."
+echo "Current directory: $(pwd)"
 
+if [ ! -f go.mod ]; then
+  echo "go.mod missing, cannot run govulncheck"
+  exit 3
+fi
+ls -l 
 govulncheck -v ./...  >  ~/xconf_vulnerability_reports/xconfui_govulncheck.txt
 
 
