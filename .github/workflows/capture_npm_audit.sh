@@ -46,6 +46,8 @@ npm install --package-lock-only
 
 npm install -g bower
 
+export PATH=$(npm bin -g):$PATH
+
 bower install
 
 mkdir -p "$GITHUB_WORKSPACE/xconf_npm_vulnerability_reports"
