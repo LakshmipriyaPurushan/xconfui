@@ -13,7 +13,7 @@ jobs:
 
       - name: Run script
         run: |
-          chmod +x .github/workflows/capture_audit.sh
+          chmod +x .github/workflows/capture_snyk_audit.sh
           source .github/workflows/capture_snyk_audit.sh
           env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
