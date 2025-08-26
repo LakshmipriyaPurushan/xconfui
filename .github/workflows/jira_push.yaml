@@ -30,10 +30,7 @@ jobs:
 
           SUMMARY="XCONF UI Vulnerability Report - $ARTIFACT_NAME"
           DESCRIPTION="XCONF scan has been triggered. Please find the vulnerability report from:\n$WORKFLOW_URL"
-
-           - name: Create Jira issue
-           run: |
-            curl -X POST \
+          curl -X POST \
               H "Authorization: Bearer $JIRA_TOKEN" \
               -H "Content-Type: application/json" \
               --data '{
