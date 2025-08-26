@@ -17,8 +17,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name:  xconfui_govulncheck.txt
-          path:  $GITHUB_WORKSPACE/xconf_vulnerability_reports
+          name:  xconfui_govulncheck
+          path: ${{ github.workspace }}/xconf_vulnerability_reports/xconfui_govulncheck.txt
 
       - name: Create Jira Ticket with GitHub details
         env:
@@ -30,40 +30,27 @@ jobs:
 
           SUMMARY="XCONF UI Vulnerability Report - $ARTIFACT_NAME"
           DESCRIPTION="XCONF scan has been triggered. Please find the vulnerability report from:\n$WORKFLOW_URL"
-        
-          curl -X POST \
-            -H "Authorization: Bearer $JIRA_API_TOKEN" \
-            -H "Content-Type: application/json" \
-            -H "Expect:" \
-            --url "${{secrets.JIRA_URL}}/rest/api/2/issue" \
-            -d '{
-              "fields": {
-                "project": {
-                  "key": "'"${{secrets.PROJECT}}"'"
-                },
-                "summary": "'"$SUMMARY"'",
-                "description": {
-                  "type": "doc",
-                  "version": 1,
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "'"${DESCRIPTION}"'"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "issuetype": {
-                  "name": "Task"
-                },
-                "labels": ["github-artifact", "automated"]
-              }
-            }'
 
+           - name: Create Jira issue
+           run: |
+            curl -X POST \
+              H "Authorization: Bearer $JIRA_TOKEN" \
+              -H "Content-Type: application/json" \
+              --data '{
+                "fields": {
+                  "project": { "key": $PROJECT },
+                  "summary": $SUMMARY,
+                  "description": $DESCRIPTION,
+                  "issuetype": { "name": "Task" }
+                }
+              }' \
+              $JIRA_URL/rest/api/2/issue
+          env:
+            JIRA_URL: ${{ secrets.JIRA_URL }}         # e.g. https://jira.example.com
+            JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}     # PAT or password (if PAT not available)
+            PROJECT: ${{secrets.PROJECT}}
+
+      
           
       
     
