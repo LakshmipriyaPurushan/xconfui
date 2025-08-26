@@ -8,6 +8,8 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
+    env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
       - uses: actions/checkout@v4  # pulls your repo files into the runner
 
@@ -15,9 +17,7 @@ jobs:
         run: |
           chmod +x .github/workflows/capture_snyk_audit.sh
           source .github/workflows/capture_snyk_audit.sh
-          env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
+          
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
