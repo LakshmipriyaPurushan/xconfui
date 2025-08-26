@@ -22,4 +22,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name:  xconfui_snyk_audit_check
-          path: ${{ github.workspace }}/xconf_snyk_vulnerability_reports/capture_snyk_results.txt
+          path: ${{ github.workspace }}/xconf_snyk_vulnerability_reports/xconfui_snyk_audit_results.txt
