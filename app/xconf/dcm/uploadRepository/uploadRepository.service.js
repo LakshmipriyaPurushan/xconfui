@@ -79,7 +79,7 @@
         }
 
         function exportOne(id) {
-            window.open(urlMapping + id + '/?export');
+            window.open(urlMapping + id + '?export');
         }
 
         function exportAll() {

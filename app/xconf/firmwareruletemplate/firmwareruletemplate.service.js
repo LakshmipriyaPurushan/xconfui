@@ -89,15 +89,15 @@
         }
 
         function exportFirmwareRuleTemplate(id) {
-            window.open(API_URL + id + '/?export');
+            window.open(API_URL + id + '?export');
         }
 
         function exportAllFirmwareRuleTemplates() {
-            window.open(API_URL + '/?export');
+            window.open(API_URL + '?export');
         }
 
         function exportAllFirmwareRuleTemplatesByType(type) {
-            window.open(API_URL + '/export/?type=' + type);
+            window.open(API_URL + '/export?type=' + type);
         }
 
         function changePriorities(id, newPriority) {
