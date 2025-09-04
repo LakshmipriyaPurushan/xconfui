@@ -9,8 +9,7 @@
   "dependencies": {
     "bower": "^1.8.14",
     "cli": "^1.0.1",
-    "grunt-cli": "^1.4.3",
-    "http-server": "^14.1.0"
+    "grunt-cli": "^1.4.3"
   },
   "devDependencies": {
     "angular-file-saver": "^1.1.3",
