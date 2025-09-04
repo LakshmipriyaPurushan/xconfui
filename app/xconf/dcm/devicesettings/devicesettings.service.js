@@ -83,7 +83,7 @@
         }
 
         function getSizeOfDeviceSettings() {
-            return $http.get(urlMapping + "size/");
+            return $http.get(urlMapping + "size");
         }
 
         function exportAllSettings() {

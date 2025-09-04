@@ -110,7 +110,7 @@
         }
 
         function exportFormula(id) {
-            window.open(urlMapping + id + '/?export');
+            window.open(urlMapping + id + '?export');
         }
 
         function exportAllFormulas() {

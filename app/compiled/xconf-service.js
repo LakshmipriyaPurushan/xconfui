@@ -2382,13 +2382,16 @@
                 const apiToExclude = ['model', 'environment', 'firmwareruletemplate', 'genericnamespacedlist', 'auth'];
                 return {
                     request: function(config) {
+                        let relativeRequestUrl = config.url;
+                        if (relativeRequestUrl.endsWith('/')) relativeRequestUrl = relativeRequestUrl.slice(0, -1);
+
                         if (!config.url
                             || config.url.includes('.html')
                             || containsAnyMatch(config.url, apiToExclude)) {
+                            config.url = relativeRequestUrl;
                             return config;
                         }
                         let currentApplicationType = getApplicationType($cookies, $rootScope);
-                        let relativeRequestUrl = config.url;
                         if (relativeRequestUrl.includes('?')) {
                             relativeRequestUrl += '&applicationType=' + currentApplicationType;
                         } else {
@@ -2915,7 +2918,7 @@
         }
 
         function getSizeOfDeviceSettings() {
-            return $http.get(urlMapping + "size/");
+            return $http.get(urlMapping + "size");
         }
 
         function exportAllSettings() {
@@ -3037,7 +3040,7 @@
         }
 
         function exportFormula(id) {
-            window.open(urlMapping + id + '/?export');
+            window.open(urlMapping + id + '?export');
         }
 
         function exportAllFormulas() {
@@ -3406,7 +3409,7 @@
         }
 
         function getSizeOfLogUploadSettings() {
-            return $http.get(urlMapping + "size/");
+            return $http.get(urlMapping + "size");
         }
 
         function exportAllSettings() {
@@ -3536,7 +3539,7 @@
         }
 
         function exportOne(id) {
-            window.open(urlMapping + id + '/?export');
+            window.open(urlMapping + id + '?export');
         }
 
         function exportAll() {
@@ -4931,7 +4934,7 @@ angular
         }
 
         function exportFirmwareRule(id) {
-            window.open(API_URL + id + '/?export');
+            window.open(API_URL + id + '?export');
         }
 
         function exportAllFirmwareRulesByType(type) {
@@ -5051,15 +5054,15 @@ angular
         }
 
         function exportFirmwareRuleTemplate(id) {
-            window.open(API_URL + id + '/?export');
+            window.open(API_URL + id + '?export');
         }
 
         function exportAllFirmwareRuleTemplates() {
-            window.open(API_URL + '/?export');
+            window.open(API_URL + '?export');
         }
 
         function exportAllFirmwareRuleTemplatesByType(type) {
-            window.open(API_URL + '/export/?type=' + type);
+            window.open(API_URL + '/export?type=' + type);
         }
 
         function changePriorities(id, newPriority) {
@@ -5189,7 +5192,7 @@ angular
         }
 
         function getNamespacedLists(pageNumber, pageSize, searchParam) {
-            return $http.post(urlMapping + 'filtered/?pageNumber=' + pageNumber + '&pageSize=' + pageSize, searchParam);
+            return $http.post(urlMapping + 'filtered?pageNumber=' + pageNumber + '&pageSize=' + pageSize, searchParam);
         }
 
         function getAllIpAddressGroups() {
@@ -5247,11 +5250,11 @@ angular
         }
 
         function getAllNamespacedListsIdToNameMap() {
-            return $http.get(urlMapping + "names/");
+            return $http.get(urlMapping + "names");
         }
 
         function getAllNamespacedListsByTypeIdToNameMap(type) {
-            return $http.get(urlMapping + type + "/names/");
+            return $http.get(urlMapping + type + "/names");
         }
 
         function isValidIpAddress(ipAddress) {
@@ -6303,7 +6306,7 @@ angular
     service.$inject = ['$http'];
 
     function service($http) {
-        var API_URL = 'telemetry/v2/testpage/';
+        var API_URL = 'telemetry/v2/testpage';
 
         return {
             getMatchedRules: getMatchedRules

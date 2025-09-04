@@ -61,7 +61,7 @@
         }
 
         function getNamespacedLists(pageNumber, pageSize, searchParam) {
-            return $http.post(urlMapping + 'filtered/?pageNumber=' + pageNumber + '&pageSize=' + pageSize, searchParam);
+            return $http.post(urlMapping + 'filtered?pageNumber=' + pageNumber + '&pageSize=' + pageSize, searchParam);
         }
 
         function getAllIpAddressGroups() {
@@ -119,11 +119,11 @@
         }
 
         function getAllNamespacedListsIdToNameMap() {
-            return $http.get(urlMapping + "names/");
+            return $http.get(urlMapping + "names");
         }
 
         function getAllNamespacedListsByTypeIdToNameMap(type) {
-            return $http.get(urlMapping + type + "/names/");
+            return $http.get(urlMapping + type + "/names");
         }
 
         function isValidIpAddress(ipAddress) {

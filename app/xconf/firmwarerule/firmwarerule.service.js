@@ -73,7 +73,7 @@
         }
 
         function exportFirmwareRule(id) {
-            window.open(API_URL + id + '/?export');
+            window.open(API_URL + id + '?export');
         }
 
         function exportAllFirmwareRulesByType(type) {
