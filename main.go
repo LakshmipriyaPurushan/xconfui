@@ -24,6 +24,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/rdkcentral/xconfui/app"
 	"github.com/rdkcentral/xconfui/server"
 	"github.com/rdkcentral/xconfui/server/common"
 	"github.com/rdkcentral/xconfui/server/logging"
@@ -76,7 +77,8 @@ func main() {
 
 	server.RouteAdminUIApi(mux, server.ProxyRequestHandler(proxy))
 	server.RouteBaseApi(mux)
-	server.RouteStaticResources(mux, webRoot)
+	server.RouteStaticImages(mux, webRoot)
+	app.RouteUiFiles(mux)
 
 	port := sc.GetString("xconfadminui.server.port")
 	log.Fatal(http.ListenAndServe(port, mux))

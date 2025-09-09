@@ -6,6 +6,10 @@ The XConf Server uses the Bootstrap framework.  When building XConf Server, Boot
 ### How to run:
 Xconf Web Admin is running with a golang server.
 
+#### Prerequisites
+- Node.js v24.1.0
+- npm 11.3.0
+
 1. Go to project directory and run to install all UI dependencies:
 ```shell
 npm install

@@ -25,7 +25,7 @@
     service.$inject = ['$http'];
 
     function service($http) {
-        var API_URL = 'telemetry/v2/testpage/';
+        var API_URL = 'telemetry/v2/testpage';
 
         return {
             getMatchedRules: getMatchedRules
