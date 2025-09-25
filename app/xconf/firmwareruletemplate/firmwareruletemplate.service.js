@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,15 +89,15 @@
         }
 
         function exportFirmwareRuleTemplate(id) {
-            window.open(API_URL + id + '/?export');
+            window.open(API_URL + id + '?export');
         }
 
         function exportAllFirmwareRuleTemplates() {
-            window.open(API_URL + '/?export');
+            window.open(API_URL + '?export');
         }
 
         function exportAllFirmwareRuleTemplatesByType(type) {
-            window.open(API_URL + '/export/?type=' + type);
+            window.open(API_URL + '/export?type=' + type);
         }
 
         function changePriorities(id, newPriority) {

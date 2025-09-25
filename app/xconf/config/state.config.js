@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 (function () {
     'use strict';
 
@@ -41,8 +40,7 @@
                 function setAdminUrlCookie() {
                     $cookies.put('admin-ui-location', $window.location.origin);
                 }
-
-
+        
                 async function setAuthInfoIfAuthorized() {
                     if ($cookies.get('token')) {
                         let userInfoResp = await authService.getAuthInfo();
@@ -116,6 +114,7 @@
 
                         if ($state.current.name !== 'authorization' && !$cookies.get('token') && !isDevProfile) {
                             event.preventDefault();
+                            console.log('unauthorized');
                             $rootScope.$broadcast(AUTH_EVENT.UNAUTHORIZED);
                         } else if (!authUtilsService.hasOneOfPermissions(permissions)) {
                             event.preventDefault();
@@ -883,6 +882,17 @@
                 controllerAs: 'vm',
                 url: '/penetration-data',
                 templateUrl: 'app/xconf/penetration-data/penetration-data.html',
+                data: {
+                    permissions: [PERMISSION.VIEW_TOOLS]
+
+                }
+            })
+
+            .state('rfc-recooking-lock', {
+                controller: 'RfcPrecookingLockController',
+                controllerAs: 'vm',
+                url: '/rfc-processing-lock',
+                templateUrl: 'app/xconf/rfc/precookinglock/recookinglock.html',
                 data: {
                     permissions: [PERMISSION.VIEW_TOOLS]
 

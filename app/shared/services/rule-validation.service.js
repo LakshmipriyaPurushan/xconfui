@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@
     service.$inject=['OPERATION', 'alertsService', 'utilsService'];
 
     function service(OPERATION, alertsService, utilsService) {
-
         // works for time in format hh:mm or hh:mm:ss
         function validateTime(timeString) {
             var time = timeString.split(':');
@@ -103,12 +102,16 @@
                     alertsService.showError({message: "FixedArg is required"});
                     return 1;
                 } else {
-                    if (condition.operation === OPERATION.LTE || condition.operation === OPERATION.GTE) {
+                    if ((condition.operation === OPERATION.LTE || condition.operation === OPERATION.GTE) && condition.freeArg.name === 'time') {
                         var validationMessage = validateTime(_.values(condition.fixedArg.bean.value)[0]);
                         if (validationMessage !== null) {
                             alertsService.showError({title: "FreeArg", message: validationMessage});
                             return 1;
                         }
+                    } else if (ruleBuilderScope.fixedArgRequired &&
+                        (condition.operation === OPERATION.LTE || condition.operation === OPERATION.GTE) && !utilsService.isNumeric(condition.fixedArg.bean.value['java.lang.Double'])) {
+                        alertsService.showError({title: 'Cert Expiry Duration', message: 'Value must be a number'});
+                        return 1;
                     }
                 }
             }

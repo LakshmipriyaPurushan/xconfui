@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,8 @@
                     autoCompleteValues: '=',
                     quickAdd: '=',
                     maxNumberOfItems: '=',
-                    stopAdd: '='
+                    stopAdd: '=',
+                    enableBase64: '='
                 },
                 templateUrl: 'app/shared/directives/editable-map/editable-map.directive.html',
                 link: function(scope) {
@@ -41,6 +42,14 @@
 
                     scope.addKeyValue = function addKeyValue(entry) {
                         scope.parameters.push({key: entry.key, value: entry.value});
+                    };
+
+                    scope.setBase64EncodedFlag = function setBase64EncodedFlag(property) {
+                        if(property.value && utilsService.isBase64(property.value) && !utilsService.isGibberish(atob(property.value))) {
+                            property.base64Encoded = true;
+                        } else {
+                            property.base64Encoded = false;
+                        }
                     };
                 }
             }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 (function () {
     'use strict';
     angular
@@ -27,7 +26,7 @@
     function service($rootScope, $q, fileReader, $dialogs, $timeout, utilsService, alertsService, ENTITY_TYPE) {
 
         var progressBarControl = {};
-        var MAX_VALUES_FILESIZE = 6 * 1024 * 1024;//6 MiB
+        var MAX_VALUES_FILESIZE = 10 * 1024 * 1024;//6 MiB
 
         $rootScope.$on('fileReaderProgress', function (event, data) {
             if (data.progress < data.total) {

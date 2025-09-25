@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright 2023 Comcast Cable Communications Management, LLC
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * SPDX-License-Identifier: Apache-2.0
- *******************************************************************************/
+ */
 (function() {
     'use strict';
 
@@ -37,7 +37,8 @@
             rule: {
                 applicationType: $rootScope.applicationType,
                 name:'',
-                boundTelemetryIds: []
+                boundTelemetryIds: [],
+                noOp: false
             }
         };
         vm.saveTargetingRule = saveTargetingRule;
@@ -108,6 +109,9 @@
         vm.isSaving = false;
         function saveTargetingRule() {
             if (validateRule(vm.targetingRule.rule)) {
+                if (vm.targetingRule.rule.noOp) {
+                    vm.targetingRule.rule.boundTelemetryIds = [];
+                }
                 vm.isSaving = true; 
                 if (vm.targetingRule.rule.id) {
                     telemetryTwoTargetingRuleService.update(vm.targetingRule.rule).then(function (resp) {
@@ -133,7 +137,6 @@
         
 
         function validateRule(rule) {
-            console.log(rule)
             var emptyFields = [];
             if (!rule.condition && !rule.compoundParts) {
                  emptyFields.push('condition');
@@ -141,8 +144,8 @@
             if (!rule.name) {
                 emptyFields.push('name');
             }
-            if (rule.boundTelemetryIds.length == 0) {
-                emptyFields.push('Telemetry 2.0 profile');
+            if (!rule.noOp && rule.boundTelemetryIds.length === 0) {
+                emptyFields.push('telemetry profile');
             }
 
             if (emptyFields.length > 0) {

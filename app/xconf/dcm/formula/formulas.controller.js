@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,9 +41,12 @@
         vm.pageNumber = paginationService.getPageNumber();
         vm.numPages = 0;
         vm.formulasSize = parseInt(formulasSize);
+        vm.generalItemsNumber = 0;
         vm.availablePriorities = [];
         vm.searchParam = {};
         vm.searchOptions = RULE_SEARCH_OPTIONS;
+        vm.isDataLoading = false;
+
         vm.deleteRule = deleteRule;
         vm.viewVodSettings = viewVodSettings;
         vm.viewDeviceSettings = viewDeviceSettings;
@@ -55,12 +58,13 @@
         vm.changePriority = changePriority;
         vm.exportFormula = formulaService.exportFormula;
         vm.exportAllFormulas = formulaService.exportAllFormulas;
-        vm.isDataLoading = false;
+        vm.startParse = startParse;
+
         init();
         
         function init() {
-            getFormulas(vm.pageNumber, vm.pageSize);
-            setAvailablePriorities(getSize());
+            getFormulas();
+            setAvailablePriorities(vm.formulasSize);
         }
 
         function getFormulas() {
@@ -68,7 +72,7 @@
             formulaService.getPage(vm.pageSize, vm.pageNumber, vm.searchParam).then(function (result) {
                     vm.isDataLoading = false;
                     vm.rules = result.data;
-                    vm.formulasSize = result.headers('numberofitems');
+                    vm.generalItemsNumber = result.headers('numberofitems');
                     paginationService.savePaginationSettingsInLocation(vm.pageNumber, vm.pageSize);
                     getSettingsAvailability(vm.rules);
                 },
@@ -109,7 +113,7 @@
                         shiftItems();
                         alertsService.successfullyDeleted(rule.name);
                     }, function (error) {
-                        alertsService.showError({title: 'Error', message: error.message});
+                        alertsService.showError({title: 'Error', message: error.data.message});
                     });
                 });
             }
@@ -178,20 +182,20 @@
                 formulaService.changePriorities(id, priority).then(function(result){
                     init();
                 }, function(reason) {
-                    alertsService.showError({title: 'Error', message: reason.message});
+                    alertsService.showError({title: 'Error', message: reason.data.message});
                     init();
                 });
             }, function(btn) {
                     init(); 
-            })
+            });
         }
 
         function shiftItems() {
-            vm.formulasSize--;
-            var numberOfPagesAfterDeletion = Math.ceil((vm.formulasSize) / vm.pageSize);
+            vm.generalItemsNumber--;
+            var numberOfPagesAfterDeletion = Math.ceil((vm.generalItemsNumber) / vm.pageSize);
             var pageNumber = (vm.pageNumber > numberOfPagesAfterDeletion && numberOfPagesAfterDeletion > 0) ? numberOfPagesAfterDeletion : vm.pageNumber;
             getFormulas(pageNumber, vm.pageSize);
-            setAvailablePriorities(getSize());
+            setAvailablePriorities(vm.formulasSize);
         }
 
         function changePageSize(pageSizeModel) {
@@ -201,11 +205,15 @@
         }
 
         function getSize() {
-            return vm.formulasSize;
+            return vm.generalItemsNumber;
+        }
+
+        function startParse() {
+            return vm.generalItemsNumber > 0;
         }
 
         function setAvailablePriorities(size) {
-            size = parseInt(size);
+            size = size;
 
             vm.availablePriorities = [];
             for (var i = 1; i < size + 1; i++) {

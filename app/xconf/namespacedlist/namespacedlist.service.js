@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 (function() {
     'use strict';
 
@@ -62,7 +61,7 @@
         }
 
         function getNamespacedLists(pageNumber, pageSize, searchParam) {
-            return $http.post(urlMapping + 'filtered/?pageNumber=' + pageNumber + '&pageSize=' + pageSize, searchParam);
+            return $http.post(urlMapping + 'filtered?pageNumber=' + pageNumber + '&pageSize=' + pageSize, searchParam);
         }
 
         function getAllIpAddressGroups() {
@@ -120,11 +119,11 @@
         }
 
         function getAllNamespacedListsIdToNameMap() {
-            return $http.get(urlMapping + "names/");
+            return $http.get(urlMapping + "names");
         }
 
         function getAllNamespacedListsByTypeIdToNameMap(type) {
-            return $http.get(urlMapping + type + "/names/");
+            return $http.get(urlMapping + type + "/names");
         }
 
         function isValidIpAddress(ipAddress) {

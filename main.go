@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,22 +20,20 @@ package main
 import (
 	"flag"
 	"fmt"
-	"html/template"
 	"net/http"
-	"net/http/httputil"
-	"net/url"
 	"os"
 	"strings"
-	"xconfui/server"
-	"xconfui/server/common"
-	"xconfui/server/logging"
 
+	"github.com/rdkcentral/xconfui/app"
+	"github.com/rdkcentral/xconfui/server"
+	"github.com/rdkcentral/xconfui/server/common"
+	"github.com/rdkcentral/xconfui/server/logging"
 	log "github.com/sirupsen/logrus"
 )
 
-const defaultConfigFile = "/app/xconfui/xconfui.conf"
+const defaultConfigFile = "/app/xconfadminui/xconfadminui.conf"
 
-var web_root string
+var webRoot string
 
 func main() {
 	configFile := flag.String("f", defaultConfigFile, "config file")
@@ -48,7 +46,7 @@ func main() {
 
 	common.SetServerConfig(sc)
 
-	logFile := sc.GetString("xconfui.log.file")
+	logFile := sc.GetString("xconfadminui.log.file")
 	if len(logFile) > 0 {
 		file, err := os.OpenFile(logFile, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
 		if err != nil {
@@ -58,61 +56,34 @@ func main() {
 		defer file.Close()
 
 		log.SetOutput(file)
-		logging.InitLogging(sc, file)
+		logging.InitLogging(sc)
 	} else {
 		log.SetOutput(os.Stdout)
 	}
 
-	web_root = sc.GetString("xconfui.server.web_root")
-	if web_root == "" {
+	webRoot = sc.GetString("xconfadminui.server.web_root")
+	if webRoot == "" {
 		panic("server.web_root property must be set")
 	} else {
-		web_root = strings.TrimSuffix(web_root, "/")
+		webRoot = strings.TrimSuffix(webRoot, "/")
 	}
-	log.Info(fmt.Sprintf("Web server document root: %s", web_root))
+	log.Info(fmt.Sprintf("Web server document root: %s", webRoot))
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", Index)
 
-	backendUrlStr := sc.GetString("xconfui.xconfadmin.host")
-	proxy := NewProxyToBackend(backendUrlStr)
+	backendUrlStr := sc.GetString("xconfadminui.webconfigadmin.host")
+	proxy := server.NewProxyToBackend(backendUrlStr)
 
-	server.RouteAdminUIApi(mux, ProxyRequestHandler(proxy))
+	server.RouteAdminUIApi(mux, server.ProxyRequestHandler(proxy))
 	server.RouteBaseApi(mux)
-	server.RouteStaticResources(mux, web_root)
+	server.RouteStaticImages(mux, webRoot)
+	app.RouteUiFiles(mux)
 
-	port := sc.GetString("xconfui.server.port")
+	port := sc.GetString("xconfadminui.server.port")
 	log.Fatal(http.ListenAndServe(port, mux))
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "index.html")
-}
-
-func renderTemplate(w http.ResponseWriter, tmpl string) {
-	fileName := fmt.Sprintf("%s/templates/%s", web_root, tmpl)
-	parsedTemplate, err := template.ParseFiles(fileName)
-	if err != nil {
-		log.Errorf("Template parsing error: %v", err)
-	}
-	err = parsedTemplate.Execute(w, nil)
-	if err != nil {
-		log.Errorf("Template executing error: %v", err)
-	}
-}
-
-func NewProxyToBackend(targetHost string) *httputil.ReverseProxy {
-	url, err := url.Parse(targetHost)
-	if err != nil {
-		log.Errorf("Proxy error: %v", err)
-		panic(err)
-	}
-	return httputil.NewSingleHostReverseProxy(url)
-}
-
-func ProxyRequestHandler(proxy *httputil.ReverseProxy) func(http.ResponseWriter, *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		r.Header.Set("X-Request-ID", "adminui")
-		proxy.ServeHTTP(w, r)
-	}
+	server.RenderTemplate(w, webRoot, "index.html")
 }

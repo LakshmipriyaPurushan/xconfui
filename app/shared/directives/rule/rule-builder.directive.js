@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 (function () {
     "use strict";
 
@@ -153,6 +152,8 @@
                     case OPERATION.EXISTS:
                         break;
                     case OPERATION.PERCENT:
+                    case OPERATION.LTE:
+                    case OPERATION.GTE:
                         var type = 'java.lang.Double';
                         var sourceValue = condition.fixedArg.bean.value;
                         var isSourceValueObject = angular.isObject(sourceValue);
@@ -210,11 +211,10 @@
                 }
                 scope.prevRuleOperation = condition.operation;
                 switch(condition.operation) {
-                    case OPERATION.LT:
-                    case OPERATION.GT:
+                    case OPERATION.LTE:
+                    case OPERATION.GTE:
                         scope.disableFreeArgInput = false;
                         scope.disableFixedArgInput = false;
-
                         condition.freeArg.type = 'LONG';
                         break;
                     case OPERATION.EXISTS:
@@ -252,10 +252,6 @@
                 showRelation(scope);
             });
 
-            scope.disableNegated = function() {
-                return scope.rule.condition.operation === OPERATION.PERCENT;
-            };
-
             scope.showAddNamespacedListModal = function() {
                 var modalInstance = $modal.open({
                     templateUrl: 'app/shared/filtered-select/filtered-select.html',
@@ -284,10 +280,6 @@
                         }
                     }
                 });
-            };
-
-            scope.disableNegated = function() {
-                return scope.rule.condition.operation === OPERATION.PERCENT;
             };
 
             scope.cleanFixedArg = function(scope) {
@@ -339,6 +331,10 @@
                     case OPERATION.PERCENT:
                         type = "java.lang.Double";
                         break;
+                    case OPERATION.LTE:
+                    case OPERATION.GTE:
+                        type = "java.lang.Double";
+                        break;
                     default :
                         type = "java.lang.String";
                 }
@@ -356,7 +352,7 @@
                 if (!(argName.includes("ip") || argName.includes("mac")) && operation === 'IN_LIST') {
                     return false;
                 }
-                return !(operation === 'PERCENT' && scope.rule.negated);
+                return true;
             }
         }
 

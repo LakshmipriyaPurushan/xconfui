@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Comcast Cable Communications Management, LLC
+ * Copyright 2024 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 (function() {
     'use strict';
 
@@ -51,13 +50,16 @@
                 const apiToExclude = ['model', 'environment', 'firmwareruletemplate', 'genericnamespacedlist', 'auth'];
                 return {
                     request: function(config) {
+                        let relativeRequestUrl = config.url;
+                        if (relativeRequestUrl.endsWith('/')) relativeRequestUrl = relativeRequestUrl.slice(0, -1);
+
                         if (!config.url
                             || config.url.includes('.html')
                             || containsAnyMatch(config.url, apiToExclude)) {
+                            config.url = relativeRequestUrl;
                             return config;
                         }
                         let currentApplicationType = getApplicationType($cookies, $rootScope);
-                        let relativeRequestUrl = config.url;
                         if (relativeRequestUrl.includes('?')) {
                             relativeRequestUrl += '&applicationType=' + currentApplicationType;
                         } else {

@@ -1,0 +1,2086 @@
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.changelog-hidden-text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.changelog-timeline {
+    list-style: none;
+    padding: 20px 0 20px;
+    position: relative;
+}
+
+.changelog-timeline:before {
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 3px;
+    background-color: darkgray;
+    left: 15%;
+    margin-left: -1.5px;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li:before,
+.changelog-timeline > uib-accordion > div.panel-group > li:after {
+    content: " ";
+    display: table;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li:after {
+    clear: both;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li:before,
+.changelog-timeline > uib-accordion > div.panel-group > li:after {
+    content: " ";
+    display: table;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li:after {
+    clear: both;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li > .timeline-panel {
+    width: 81%;
+    float: left;
+    border: 1px solid #d4d4d4;
+    border-radius: 2px;
+    padding: 20px;
+    position: relative;
+    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li > .timeline-panel:before {
+    position: absolute;
+    top: 15px;
+    right: -15px;
+    display: inline-block;
+    border-top: 15px solid transparent;
+    border-left: 15px solid #ccc;
+    border-right: 0 solid #ccc;
+    border-bottom: 15px solid transparent;
+    content: " ";
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li > .timeline-panel:after {
+    position: absolute;
+    top: 16px;
+    right: -14px;
+    display: inline-block;
+    border-top: 14px solid transparent;
+    border-left: 14px solid #fff;
+    border-right: 0 solid #fff;
+    border-bottom: 14px solid transparent;
+    content: " ";
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li > .timeline-badge {
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 1.4em;
+    text-align: center;
+    position: absolute;
+    top: 16px;
+    left: 16%;
+    margin-left: -25px;
+    padding-top: 2px;
+    background-color: #808080;
+    z-index: 100;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+.changelog-timeline > uib-accordion > div.panel-group > li > .timeline-badge > i {
+    vertical-align: -0.17em;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li.timeline-inverted > .timeline-panel {
+    float: right;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li > .timeline-date {
+    float: left;
+    margin-top: 1em;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li.timeline-inverted > .timeline-panel:before {
+    border-left-width: 0;
+    border-right-width: 15px;
+    left: -15px;
+    right: auto;
+}
+
+.changelog-timeline > uib-accordion > div.panel-group > li.timeline-inverted > .timeline-panel:after {
+    border-left-width: 0;
+    border-right-width: 14px;
+    left: -14px;
+    right: auto;
+}
+
+.changelog-timeline .panel-heading,
+.changelog-timeline .panel-heading a {
+    background-color: #ffffff;
+}
+
+.changelog-timeline .panel-heading a:hover,
+.changelog-timeline .panel-heading a:focus {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.changelog-timeline .panel-title {
+    font-size: 14px;
+}
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.blur-bottom {
+    background: rgba(237,237,237,0.05);
+    background: -moz-linear-gradient(top, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff', GradientType=0 );
+
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left:0;
+}
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.edit-form {
+    margin-bottom: 3px !important;
+}
+.key-input {
+    width: 200px !important;
+}
+
+.value-input {
+    width: 483px !important;
+}
+
+.remove-parameter {
+    padding-top: 5px
+}
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.ads-tagautocomplete {
+    position: relative;
+}
+
+.ads-tagautocomplete-tag {
+    float: left;
+    padding: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #f2f2f2;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+}
+
+.ads-tagautocomplete-tag:hover {
+    border: 1px solid #cccccc;
+}
+
+.ads-tagautocomplete-remove {
+    color: #d9534f;
+    cursor: pointer;
+}
+
+.ads-suggestions-list {
+    position: absolute;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.ads-suggestions-list li {
+    color: black;
+    font-weight: 600;
+    padding: 4px 25px;
+    cursor: pointer;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #dddddd;
+}
+
+.ads-suggestions-list li:hover {
+    background-color: #dddddd;
+}
+
+.ads-suggestions-list li:active,
+.ads-suggestions-list li.active {
+    color: red;
+    background-color: #dddddd;
+}
+
+.ads-suggestions-list:focus{
+    outline:none;
+}
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.file-select-fileUpload {
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+.file-select-fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.filtered-select-scrollable-modal-window {
+    overflow-y: auto;
+}
+
+@media(max-height:499px) {
+    .filtered-select-scrollable-modal-window {
+        max-height: 70px;
+    }
+}
+@media(min-height:500px) {
+    .filtered-select-scrollable-modal-window {
+        max-height: 120px;
+    }
+}
+@media(min-height:600px) {
+    .filtered-select-scrollable-modal-window {
+        max-height: 170px;
+    }
+}
+@media(min-height:700px) {
+    .filtered-select-scrollable-modal-window {
+        max-height: 270px;
+    }
+}
+@media(min-height:750px) {
+    .filtered-select-scrollable-modal-window {
+        max-height: 320px;
+    }
+}
+@media(min-height:800px) {
+    .filtered-select-scrollable-modal-window {
+        max-height: 370px;
+    }
+}
+@media(min-height:900px) {
+    .filtered-select-scrollable-modal-window {
+        max-height: 420px;
+    }
+}
+
+.filtered-select-scrollable-modal-window .nodes-list {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.filtered-select-search-result {
+    cursor: pointer;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    padding: 0.3em;
+}
+
+.filtered-select-light-shadowed {
+    -webkit-box-shadow: 1px 1px 2px rgba(4, 4, 4, 0.3);
+    -moz-box-shadow:    1px 1px 2px rgba(4, 4, 4, 0.3);
+    box-shadow:         1px 1px 2px rgba(4, 4, 4, 0.3);
+}
+
+.filtered-select-hidden-text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-chosen {
+    background-color: #ff9999;
+    border: 1px solid #e27d7d !important;
+}
+
+.filtered-select-btn-clipboard-top-right {
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: inherit;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.filtered-select-btn-symbol > span {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 0 1px 0 #000;
+}
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+tr.statistics-align-center th,
+tr.statistics-align-center td
+{
+    text-align: center;
+}
+
+tr.statistics-align-center td:first-child
+{
+    text-align: left;
+}
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.ads-navbar-authuser {
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.xconf-list {
+    padding: 0;
+    clear: both;
+}
+
+.xconf-list:after {
+    content:"";
+    display:table;
+    clear:both;
+}
+
+.ads-list-item {
+    display: block;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    color: #ffffff;
+    box-shadow: 1px 1px 2px grey;
+}
+
+.ads-list-item span {
+    display: inline-block;
+    word-break: break-all;
+}
+
+.ads-list-item-lg {
+    padding: 7px 20px;
+}
+
+.ads-list-item-sm {
+    padding: 3px 7px;
+}
+
+.ads-list-item-red {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.ads-list-item-green {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.ads-list-item-pink {
+    background-color: #f97777;
+    border-color: #d9534f;
+}
+
+.ads-list-item-grey {
+    background-color: #d3d3d3;
+    border-color: #bebebe;
+}
+
+.ads-list-item-dark-grey {
+    background-color: #b1b1b1;
+    border-color: #a7a7a7;
+}
+
+.list-item-dark-grey {
+    background-color: #8A8A8A;
+    border-color: #8C8C8C;
+}
+
+.ads-list-item-horizontal {
+    display: block;
+    float: left;
+    margin-right: 5px;
+}
+
+.ads-list-item-edit {
+    padding-right: 2em;
+    position: relative;
+}
+
+.ads-list-item-edit button {
+    position: absolute;
+    right: 0.3em;
+    top: 0.3em
+}
+
+/* ui grid */
+.xconf-map-grid {
+    width: 100%;
+    height: 250px;
+}
+
+.xconf-form-group-view {
+    margin-bottom: 0;
+}
+
+.xconf-scrollable-menu {
+    height: auto;
+    max-height: 260px;
+    /*max-width: 100%;*/
+    overflow-x: hidden;
+}
+
+.xconf-scrollable-menu>li>a {
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 25px;
+ }
+
+.xconf-multiple-select-item {
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+.xconf-multiple-select-item-icon {
+    position: absolute;
+    top: 0.3em;
+    right:0.5em;
+}
+
+.break-word {
+    word-break: break-all;
+}
+
+.break-word-inline {
+    word-break: break-all;
+    display: inline-block;
+}
+
+.break-word-label {
+    word-break: break-all;
+    display: inline-block;
+    white-space: inherit;
+}
+
+.text-overflow-ellipsis-inline {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.label-custom-size {
+    font-size: 85%;
+}
+
+.nav-logout {
+    padding-right: 15px;
+}
+
+.app-addon {
+    padding-right: 70px;
+    width: 70px;
+}
+
+.search-input {
+    width: 15em !important;
+}
+
+.application-type-select {
+    width: 7.25em;
+}
+
+.modal-custom-lg > .modal-lg {
+    width: 90em;
+}
+
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.ads-feature-rules {
+    margin: 0;
+    padding: 0;
+}
+
+.ads-feature-rules > li {
+    display: block;
+    list-style: none;
+    margin-top: 5px;
+    border: 1px;
+}
+
+.ads-feature-rules > li > .ads-block {
+    padding: 10px;
+}
+
+
+
+.rule-relation {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #d3d3d3;
+    box-shadow: 2px 2px 2px gray;
+}
+
+
+
+.rule-builder {
+    display: table;
+}
+
+.rule-builder-relation {
+    float: left;
+    padding: 0;
+    margin: 5px 0 0;
+    cursor: pointer;
+}
+
+.rule-builder-relation li {
+    float: left;
+    list-style: none;
+    margin-right: 5px;
+}
+
+.rule-builder-relation-active {
+    background-color: #ff9999;
+    border: 1px solid #e27d7d !important;
+}
+
+.rule-builder-container {
+    float: left;
+    border-radius: 25px;
+    border: 1px solid #d3d3d3;
+    box-shadow: 1px 1px 1px gray;
+    padding: 5px 5px 5px 0;
+}
+
+@media screen and (min-width: 700px) {
+    .rule-builder-container {
+        margin-left: 5px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .rule-builder-container {
+        margin-top: 5px;
+        padding-left: 5px;
+    }
+}
+
+.rule-builder-negated,
+.rule-builder-argument,
+.rule-builder-operation,
+.rule-builder-value,
+.rule-builder-add {
+    float: left;
+}
+
+@media screen and (min-width: 700px) {
+    .rule-builder-negated,
+    .rule-builder-argument,
+    .rule-builder-operation,
+    .rule-builder-value,
+    .rule-builder-add {
+        margin-left: 5px;
+    }
+}
+
+.rule-builder-negated,
+.rule-builder-argument,
+.rule-builder-operation,
+.rule-builder-value {
+    margin-top: 3px;
+}
+
+.rule-builder-negated {
+    margin-left: 10px;
+    width: 70px;
+}
+
+.rule-builder-negated .checkbox {
+    margin-top: 7px;
+    margin-bottom: 0;
+}
+
+
+@media screen and (min-width: 700px) {
+    .rule-builder-operation {
+        width: 120px;
+    }
+
+    .rule-builder-argument,
+    .rule-builder-value {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .rule-builder-argument,
+    .rule-builder-value {
+        width: 100%;
+    }
+
+    .rule-builder-operation {
+        width: 100%;
+    }
+}
+
+.rule-builder-add {
+    color: red;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 700px) {
+    .rule-builder-add {
+        margin-top: 5px;
+    }
+}
+
+
+.ruleview-editor-rule-active {
+    background-color: #e27d7d;
+}
+
+.ruleview-editor-rule-remove {
+    position: absolute;
+    top: -5px;
+    right: -22px;
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    fonxt-size: 10px;
+    color: white;
+    border-radius: 20px;
+    visibility: hidden;
+}
+
+
+/*.ads-ruleview-rule:hover .ruleview-editor-rule-remove,*/
+.ruleview-editor-rule-active .ruleview-editor-rule-remove {
+    visibility: visible;
+}
+
+.ads-btn-small {
+    display: block;
+    background-color: red;
+    color: black;
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.featurerule-input-autocomplete > ul.dropdown-menu {
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+.featurerule-view-container {
+    cursor: pointer;
+}
+
+.featurerule-appliableaction-view {
+    overflow: hidden;
+    height: 100%;
+    padding-bottom: 10px;
+}
+
+.featurerule-blur {
+    background: rgba(237,237,237,0.05);
+    background: -moz-linear-gradient(top, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(237,237,237,0.05) 0%, rgba(246,246,246,0.55) 53%, rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff', GradientType=0 );
+
+    height: 40px;
+    width: 100%;
+    /*margin-top: -30px;*/
+    position: absolute;
+    bottom: 0;
+    z-index: 100;
+}
+
+.featurerule-blurred-ovewflow {
+    position: relative;
+    height: 100%;
+}
+
+.featurerule-list-item {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    overflow: hidden;
+    color: #333;
+    padding: 0.5em;
+    text-align: left;
+    position: relative;
+    margin-top: 0.1em;
+}
+
+.featurerule-list-item:hover {
+    background-color: #e1e1e1;
+}
+
+.featurerule-prop-name {
+    font-size: 0.9em;
+    font-style: italic;
+    width: 30%;
+    float: left;
+}
+
+.featurerule-property {
+    width: 70%;
+    float: left;
+    word-wrap: break-word;
+}
+
+.featurerule-hidden-text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.featurerule-properties-header {
+    margin-top: 2em;
+    margin-bottom: 0.8em;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.featurerule-header-row .input-group-btn {
+    width: auto;
+}
+
+.featurerule-header-row {
+    position: relative;
+}
+
+.featurerule-no-results {
+    height: 300px;
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+
+.featurerule-no-results h4 {
+    display: table-cell;
+    vertical-align: middle;
+    color: #d3d3d3;
+}
+
+.featurerule-context-panel {
+    background-color: #eeeeee;
+    margin-bottom: 0.7em;
+}
+
+.setting-rule .form-group {
+    margin:10px 5px !important;
+}
+
+.setting-no-profile {
+    color: red;
+}
+
+.matched-rules {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+}
+
+.no-firmwarerule-template {
+    color: #888888;
+}
+
+.no-firmwarerule-template .checked-in-list {
+    background-color: #EFEFEF;
+    border-color: #c2c2c2 !important;
+    color: #878787 !important;
+}
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.ruleview-list {
+    margin: 0 0 0 30px;
+    padding: 0;
+}
+
+.ruleview-list > li,
+.ruleview {
+    display: block;
+    position: relative;
+    list-style: none;
+}
+
+.ruleview-rule {
+    position: relative;
+    display: table;
+
+
+/* background-color: #ff9999; */
+
+    border-radius: 20px;
+    margin-bottom: 7px;
+}
+
+.ruleview-list .ruleview-condition {
+    margin-left: 50px;
+}
+
+@media screen and (max-width: 700px) {
+    .ruleview-rule {
+        width: 100%;
+    }
+}
+
+.ruleview-condition {
+    position: relative;
+    border: 1px solid #d3d3d3;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.ruleview-condition:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.ruleview-argument,
+.ruleview-operation,
+.ruleview-value {
+    font-size: 12px;
+    padding: 5px;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+
+@media screen and (min-width: 700px) {
+    .ruleview-argument,
+    .ruleview-operation,
+    .ruleview-value {
+        float: left;
+    }
+}
+
+.ruleview-operation {
+    text-align: left;
+}
+
+@media screen and (min-width: 700px) {
+    .ruleview-operation {
+        padding-left: 8px;
+        padding-right: 8px;
+        text-align: center;
+    }
+}
+
+.ruleview-relation {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    /*float: left;*/
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #d3d3d3;
+    box-shadow: 2px 2px 2px gray;
+    margin-right: 10px;
+}
+
+.ruleview-condition,
+.ruleview-relation {
+    border: 1px solid #d3d3d3;
+    box-shadow: 2px 2px 2px gray;
+}
+
+.ruleview-negated {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    background-color: red;
+    padding: 0 3px;
+    color: black;
+    font-size: 10px;
+    border-radius: 10px;
+    line-height: 20px;
+}
+
+.ruleview-condition-not {
+    border: 1px solid red !important;
+}
+
+ul.no-bullets {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*
+* { border: 1px solid red; }
+*/
+/**
+ * Copyright 2024 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.navbar-nav > li > a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    line-height: 20px;
+}
+
+.page-header {
+    margin-top: 0
+}
+
+.ads-navbar {
+    background-color: #6a6868;
+    position: fixed;
+    left: 50%;
+    float: left;
+    -webkit-box-shadow: 0px 6px 5px 0px rgba(45,45,45,0.75);
+    -moz-box-shadow: 0px 6px 5px 0px rgba(45,45,45,0.75);
+    box-shadow: 0px 6px 5px 0px rgba(45,45,45,0.75);
+    z-index: 500; /* the stack order: foreground */
+}
+
+.ads-navbar .navbar-brand {
+    color: #e1e1e1;
+    font-size: 22px;
+}
+
+.ads-navbar .navbar-brand:hover,
+.ads-navbar .navbar-brand:focus {
+    color: #e1e1e1;
+}
+
+.ads-navbar .navbar-header a.navbar-brand {
+    outline: 0;
+}
+
+.ads-navbar .navbar-header a.navbar-brand.navbar-shadowed {
+    margin-left: -3em;
+    margin-right: 2em;
+}
+
+.ads-navbar .navbar-text {
+    color: #e1e1e1;
+    margin-right: 2em;
+    margin-left: 3em;
+}
+
+.ads-navbar .navbar-nav > li > a {
+    color: #e1e1e1;
+    font-size: 16px;
+}
+
+.ads-navbar .navbar-nav > li > a:hover,
+.ads-navbar .navbar-nav > li > a:focus {
+    color: #e1e1e1;
+    background-color: transparent;
+    outline: 0;
+}
+
+.ads-navbar .navbar-nav > li.active > a {
+    border-bottom: 2px solid red;
+    outline: 0;
+}
+
+.ads-navbar .navbar-nav > .open > a,
+.ads-navbar .navbar-nav > .open > a:hover,
+.ads-navbar .navbar-nav > .open > a:focus,
+.ads-navbar .navbar-nav > .active > a,
+.ads-navbar .navbar-nav > .active > a:hover,
+.ads-navbar .navbar-nav > .active > a:focus {
+    color: #e1e1e1;
+    background-color: #363434;
+}
+
+.ads-navbar .navbar-toggle {
+    border-color: #363434;
+}
+
+.ads-navbar .navbar-toggle:hover,
+.ads-navbar .navbar-toggle:focus {
+    background-color: #363434;
+}
+
+.ads-navbar .navbar-toggle .icon-bar {
+    background-color: #e1e1e1;
+}
+
+.ads-navbar .navbar-collapse,
+.ads-navbar .navbar-form {
+    border-color: #e1e1e1;
+}
+
+.ads-navbar .navbar-link,
+.ads-navbar .navbar-link:hover {
+    color: #e1e1e1;
+    text-decoration: none;
+    outline: 0;
+}
+
+.ads-navbar .navbar-shadowed {
+    text-shadow: 2px 1px 2px black;
+}
+
+.ads-navbar .navbar-brand-logo {
+    margin-left: -0.5em;
+    margin-top: -0.5em;
+    width: 60%;
+}
+
+.ads-container-custom {
+    margin-top: 4em;
+}
+
+.namespacedlist-btn-custom {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.namespacedlist-btn-custom:hover,
+.namespacedlist-btn-custom:focus,
+.namespacedlist-btn-custom.focus,
+.namespacedlist-btn-custom:active,
+.namespacedlist-btn-custom.active,
+.open > .dropdown-toggle.namespacedlist-btn-custom {
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #ac2925;
+}
+
+.namespacedlist-btn-custom:active,
+.namespacedlist-btn-custom.active,
+.open > .dropdown-toggle.namespacedlist-btn-custom {
+    background-image: none;
+}
+
+.namespacedlist-btn-custom.disabled,
+.namespacedlist-btn-custom[disabled],
+fieldset[disabled] .namespacedlist-btn-custom,
+.namespacedlist-btn-custom.disabled:hover,
+.namespacedlist-btn-custom[disabled]:hover,
+fieldset[disabled] .namespacedlist-btn-custom:hover,
+.namespacedlist-btn-custom.disabled:focus,
+.namespacedlist-btn-custom[disabled]:focus,
+fieldset[disabled] .namespacedlist-btn-custom:focus,
+.namespacedlist-btn-custom.disabled.focus,
+.namespacedlist-btn-custom[disabled].focus,
+fieldset[disabled] .namespacedlist-btn-custom.focus,
+.namespacedlist-btn-custom.disabled:active,
+.namespacedlist-btn-custom[disabled]:active,
+fieldset[disabled] .namespacedlist-btn-custom:active,
+.namespacedlist-btn-custom.disabled.active,
+.namespacedlist-btn-custom[disabled].active,
+fieldset[disabled] .namespacedlist-btn-custom.active {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+.namespacedlist-btn-custom .badge {
+    color: #d9534f;
+    background-color: #fff;
+}
+
+.changelog-timeline > accordion > div.panel-group > li > .timeline-badge {
+    background-color: #f97777;
+}
+
+.ads-wrapper {
+    margin: 0px auto;
+    margin-top: -10px;
+    position: relative;
+    z-index: 400; /* the stack order: displayed under ribbon rectangle */
+    background-color: #fff;
+    min-height: 95vh;
+}
+
+@media (min-width: 768px) {
+    .ads-navbar {
+        width: 780px;
+        margin-left: -390px;
+    }
+    .ads-wrapper {
+        width: 750px;
+    }
+    .triangle-r {
+        margin-left: 375px;
+    }
+    .triangle-l {
+        margin-left: -410px;
+    }
+}
+@media (min-width: 992px) {
+    .ads-navbar {
+        width: 1000px;
+        margin-left: -500px;
+    }
+    .ads-wrapper {
+        width: 970px;
+    }
+    .triangle-r {
+        margin-left: 485px;
+    }
+    .triangle-l {
+        margin-left: -515px;
+    }
+}
+@media (min-width: 1200px) {
+    .ads-navbar {
+        width: 1200px;
+        margin-left: -600px;
+    }
+    .ads-wrapper {
+        width: 1170px;
+    }
+    .triangle-r {
+        margin-left: 585px;
+    }
+    .triangle-l {
+        margin-left: -615px;
+    }
+}
+
+/* Left side-fold ribbon */
+.triangle-l {
+    border-color: transparent #4d4d4d transparent transparent;
+    border-style: solid;
+    border-width: 15px;
+    height: 0px;
+    width: 0px;
+    position: fixed;
+    left: 50%;
+    top: 38px;
+    z-index: -1; /* displayed under bubble */
+}
+
+/* Right side-fold ribbon */
+.triangle-r {
+    border-color: transparent transparent transparent #4d4d4d;
+    border-style: solid;
+    border-width: 15px;
+    height: 0px;
+    width: 0px;
+    position: fixed;
+    left: 50%;
+    top: 38px;
+    z-index: -1; /* displayed under bubble */
+}
+
+
+
+.block {
+    box-shadow: 2px 2px 2px gray;
+    margin-bottom: 5px;
+    margin-top: 5px
+}
+
+.ads-block-for-removing {
+    box-shadow: 2px 2px 2px red;
+}
+
+.ads-block-newly-added {
+    box-shadow: 2px 2px 2px blue;
+}
+
+.ads-tab {
+    margin: 0;
+    padding: 0;
+}
+
+.ads-tab > li {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    box-shadow: 1px 1px 1px gray;
+}
+
+@media screen and (min-width: 700px) {
+    .ads-tab > li {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .ads-tab > li {
+        width: 100%;
+        margin-top: 2px;
+    }
+}
+
+.ads-tab > li > a {
+    display: block;
+    color: black;
+    text-decoration: none;
+    outline: none;
+    line-height: 28px;
+    padding: 0 15px;
+    border-bottom: 2px solid white;
+}
+
+.ads-tab > li > .ads-badge {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+}
+
+.ads-tab-item-hidden {
+    visibility: hidden;
+}
+
+.ads-tab-active {
+    border-bottom: 2px solid red !important;
+}
+
+.ads-badge {
+    display: inline-block;
+    padding: 0 15px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px gray;
+    font-size: 12px;
+}
+
+.ads-items {
+    margin: 0;
+    padding: 0;
+}
+
+.ads-items li {
+    list-style: none;
+    display: table;
+    border-radius: 5px;
+}
+
+.ads-items.editor li {
+    width: 100%;
+}
+
+.ads-items li a {
+    outline: 0;
+}
+
+
+.ads-items .ads-item-value {
+    display: block;
+    padding: 5px;
+    float: left;
+}
+
+.ads-items .ads-btn-small {
+    margin-top: 5px;
+    float: right;
+}
+
+
+.ads-btn {
+    display: inline-block;
+    background-color: red;
+    text-align: center;
+}
+
+.ads-btn, .ads-btn:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.ads-btn-small {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+}
+
+.ads-btn-standard {
+    width: 100px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid red;
+}
+
+.ads-btn-white {
+    background-color: white;
+}
+
+.fileselect-btn-custom {
+    color: #fff;
+    background-color: #6a6868;
+    border-color: #655b55;
+}
+
+.fileselect-btn-custom:hover,
+.fileselect-btn-custom:focus,
+.fileselect-btn-custom.focus,
+.fileselect-btn-custom:active,
+.fileselect-btn-custom.active,
+.open > .dropdown-toggle.fileselect-btn-custom {
+    color: #fff;
+    background-color: #5a5a5a;
+    border-color: #505050;
+}
+
+.fileselect-btn-custom.disabled,
+.fileselect-btn-custom[disabled],
+fieldset[disabled] .fileselect-btn-custom,
+.fileselect-btn-custom.disabled:hover,
+.fileselect-btn-custom[disabled]:hover,
+fieldset[disabled] .fileselect-btn-custom:hover,
+.fileselect-btn-custom.disabled:focus,
+.fileselect-btn-custom[disabled]:focus,
+fieldset[disabled] .fileselect-btn-custom:focus,
+.fileselect-btn-custom.disabled.focus,
+.fileselect-btn-custom[disabled].focus,
+fieldset[disabled] .fileselect-btn-custom.focus,
+.fileselect-btn-custom.disabled:active,
+.fileselect-btn-custom[disabled]:active,
+fieldset[disabled] .fileselect-btn-custom:active,
+.fileselect-btn-custom.disabled.active,
+.fileselect-btn-custom[disabled].active,
+fieldset[disabled] .fileselect-btn-custom.active {
+    background-color: #6a6868;
+    border-color: #655b55;
+}
+
+.fileselect-btn-custom .badge {
+    color: #6a6868;
+    background-color: #fff;
+}
+
+.white-background {
+    background-color: #ffffff !important;
+}
+
+.ads-pagination-align {
+    text-align: right;
+    margin: 0px 10px;
+}
+
+.ads-input-group-addon {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.ads-cursor-hand {
+    cursor: pointer;
+}
+
+.dropdown-toggle-button {
+    padding-top: 0.85em;
+    padding-bottom: 0.85em;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    color: #cbcbcb;
+    font-size: 1.2em;
+}
+
+.dropdown-toggle-button:hover {
+    background-color: #515151;
+    color: #cbcbcb;
+}
+
+.open>.dropdown-toggle-button {
+    background-color: #515151 !important;
+    color: #cbcbcb !important;
+}
+
+.dropdown-toggle-button:active {
+    background-color: #515151 !important;
+    color: #cbcbcb !important;
+}
+
+.menu-container {
+    margin-top: 4em;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.menu {
+    padding-top: 1.5em;
+    padding-bottom: 2em;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 1em;
+    background-color: #DFDFDF;
+    box-shadow: 1px 5px 5px 0px;
+}
+
+.menu-title {
+    color: inherit;
+    font-weight: bold;
+}
+
+.menu-item {
+    color: inherit;
+    cursor: pointer;
+}
+
+.close-menu-button {
+    float: right;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.content {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+
+
+.ads-btn-clipboard-top-right {
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: inherit;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.ads-btn-symbol > span {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 0 1px 0 #000;
+}
+
+.ads-icon {
+    font-size: small;
+}
+
+.ads-no-results {
+    height: 300px;
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+
+.ads-no-results h4 {
+    display: table-cell;
+    vertical-align: middle;
+    color: #d3d3d3;
+}
+
+
+
+.table > tr.active {
+    background: grey;
+}
+
+
+.ellipsis-if-necessary {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.error-label {
+    color: red
+}
+
+.location-alert-info {
+    background-color: #F4F6F7;
+    border-color: #E7E9EA;
+}
+
+.formula-alert-info {
+    background-color: #F4F6F7;
+    border-color: #E7E9EA;
+    font-size: 12px;
+}
+
+.fa-none:before {
+    content: "\2122";
+    color: transparent !important;
+}
+
+.xconf-list-item {
+    padding: 2px 5px;
+}
+
+.xconf-list-item-grey {
+    background-color: #EFEFEF;
+    border-color: #AEAEAE  !important;
+    color: #595959 !important;
+}
+
+.xconf-show-more-btn {
+    padding: 3px 1px 2px 1px;
+}
+
+.checked-in-list {
+    background-color: #3470CD;
+    border-color: #6380F4 !important;
+    color: #F0F0F0 !important;
+}
+
+.missing-in-list {
+    background-color: #D23D3D;
+    border-color: #B73E3E !important;
+    color: #F0F0F0 !important;
+}
+
+.edit-list {
+    cursor: pointer;
+}
+
+.input-group-addon-button {
+    border-radius: 0px 3px 3px 0px;
+    margin: 0;
+    border: 0;
+}
+
+.xconf-input-group-addon {
+    padding: 0;
+}
+
+table.log-table >tbody>tr>th {
+    width: 25em;
+    font-weight: normal;
+}
+
+.log-alert-info {
+    color: #3E4345;
+    background-color: #F0F0F0;
+    border-color: #FFFFFF;
+}
+
+.log-table-caption {
+    font-weight: bolder;
+    font-size: 1.2em;
+    color: #4F4E4E;
+}
+
+.log-panel {
+    background-color: #ECECEC !important;
+}
+
+
+.xconf-btn-sections .btn {
+    text-align: left;
+}
+
+.xconf-btn-sections .btn .badge {
+    margin-top: 2px;
+}
+
+
+.xconf-auth-fullname {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 0;
+}
+
+.xconf-auth-logout {
+    margin-right: 15px;
+}
+
+.xconf-alert-center {
+    text-align: center;
+}
+
+.pull-center {
+    text-align: center;
+}
+
+.border-top {
+    padding: 8px;
+    border-top: 1px solid #ddd;
+}
+
+[class*='cols-'].row > *{
+  float: none;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.row.row-title > *{
+  padding: 0;
+  vertical-align: bottom;
+}
+
+.col-auto-width {
+    width: auto;
+}
+
+.row.row-title {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.row.changes-title {
+    padding: 9px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.cursor-default {
+    cursor: default !important;
+}
+
+.auto-width {
+    width: auto !important;
+}
+
+.light-gray-background {
+    background-color: #F9F9F9;
+}
+
+.percentage-width {
+    width: 8em;
+}
+
+.ipv4-percentage-view-width {
+    width: 19em;
+}
+
+.ipv6-percentage-view-width {
+    width: 28em;
+}
+
+.custom-progress-bar {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+.no-formula-btn {
+    width: 112px;
+}
+
+.has-error .panel-heading {
+    color: #a94442;
+    background-color: #f2dede;
+}
+
+.firmware-rule-info {
+    margin-top: 1em;
+}
+
+.font-size-14px {
+    font-size: 14px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.percentage-form-margin-left {
+    margin-left: 10px;
+}
+
+.percentage-form-margin-right {
+    margin-right: 10px;
+}
+
+.break-word-all {
+    word-break: break-all;
+    white-space: pre-line;
+}
+
+.percent-import.view {
+    width: 5%;
+}
+
+.percent-import.name {
+    width: 15%;
+}
+
+.percent-import.distributions {
+    width: 25% !important;
+}
+
+.percent-filter-distribution {
+    margin-bottom: 0.25em
+}
+
+.percent-import.active {
+    width: 5%;
+}
+
+.percent-import.version {
+    width: 17.5%;
+}
+
+.percent-import.overwrite {
+    width: 5%;
+}
+
+.percent-import.action-button {
+    width: 10%;
+}
+
+.distribution-config.inline {
+    width: 70%;
+    float: left;
+}
+
+.distribution-percentage.inline {
+    width: 30%;
+    float: left;
+}
+
+.distribution-error-parent {
+    font-size: 0;
+}
+
+.distribution-error {
+    font-size: 14px;
+}
+
+.distribution-percentage {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.distribution-version {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.distribution-range {
+    width: 8em !important;
+}
+
+.feature-config {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.feature-whitelist-radio {
+    padding: 0px;
+}
+
+.feature-whitelist-label {
+    margin-left: 3px;
+}
+.feature-choice {
+    width: 15em !important;
+}
+
+.application-type {
+    padding: 3px 5px 4px;
+    text-align: center;
+    background-color: #337ab7;
+    color: white
+}
+
+.remove-button-class {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+.logout-container {
+    margin-left: 5px
+}
+
+.logout {
+    margin-left: 4px;
+    cursor: pointer;
+    color: black
+}
+
+.ins {
+    color: black;
+    text-decoration: none;
+    background: #bbffbb;
+}
+
+.del {
+    color: black;
+    text-decoration: none;
+    background: #ffbbbb;
+}
+
+.change-date {
+    margin-left: 2em;
+}
+.date-time-container {
+    margin-left: 5px;
+}
+
+.date-container {
+    margin-bottom: 0;
+}
+
+.time-container {
+    margin-bottom: 0;
+}
+
+.utc-time {
+    margin-right: 5px;
+    margin-top: 3px
+}
+
+.match {
+    color: #2f2f2f;
+}
+
+.ri-align {
+    vertical-align: -0.235em !important
+}
+
+.no-padding-left {
+    padding-left: 0
+}
+
+.test-page-heading {
+    font-size: 1.5em;
+}
+
+.loader-custom {
+    border: 12px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 12px solid #3498db;
+    width: 90px;
+    height: 90px;
+    -webkit-animation: spinner 2s linear infinite;
+    animation: spinner 2s linear infinite;
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    position:static;
+  }
+  
+  @-webkit-keyframes spinner {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .changes-tab {
+    max-height: 300px;
+  }
+
+  .distribution-text-width {
+    width: 385px;
+  }
+ .announcement-text {
+     color: #000000;
+     font-size: 17px;
+     margin-top: 9px;
+ }
+
+ .announcement-container {
+     background-color: #f7db4fa3;
+     height: 45px;
+ }
+
+ .rfc-recooking-container {
+    margin-top: -10px;
+ }
